@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "554929357539",
+    "project_id": "allenare-ee28f",
+    "storage_bucket": "allenare-ee28f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554929357539:android:b02d26e7c45f8f8403bbd6",
+        "android_client_info": {
+          "package_name": "com.example.allenare_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa_jGbDsJq-ZnWLfIkDwxkyD_yxIRSVog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
