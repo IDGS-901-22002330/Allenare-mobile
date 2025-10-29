@@ -1,16 +1,11 @@
 package com.example.allenare_mobile.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,13 +28,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 
-
 @Composable
-fun DashboardScreen(
-    onLogout: () -> Unit,
-    onNavigateToLogGymWorkout: () -> Unit,
-    onNavigateToLogRunningWorkout: () -> Unit
-) {
+fun DashboardScreen(modifier: Modifier = Modifier) {
     val isInPreview = LocalInspectionMode.current
     val user = if (isInPreview) null else Firebase.auth.currentUser
     var gymWorkouts by remember { mutableStateOf<List<GymWorkout>>(emptyList()) }
@@ -66,21 +56,13 @@ fun DashboardScreen(
     }
 
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color(0xFFF0F2F5))
             .padding(16.dp)
     ) {
         item {
             UserInfo(username = user?.displayName, email = user?.email, photoUrl = user?.photoUrl?.toString())
-            Spacer(modifier = Modifier.height(24.dp))
-        }
-
-        item {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)){
-                Button(onClick = onNavigateToLogGymWorkout, modifier = Modifier.weight(1f)) { Text("Registrar Gym") }
-                Button(onClick = onNavigateToLogRunningWorkout, modifier = Modifier.weight(1f)) { Text("Registrar Carrera") }
-            }
             Spacer(modifier = Modifier.height(24.dp))
         }
 
@@ -98,17 +80,6 @@ fun DashboardScreen(
             MeasureRoute()
             Spacer(modifier = Modifier.height(24.dp))
         }
-
-        item {
-             Button(onClick = {
-                 if(!isInPreview) {
-                    Firebase.auth.signOut()
-                 }
-                onLogout()
-            }, modifier = Modifier.fillMaxWidth()) {
-                Text("Log Out")
-            }
-        }
     }
 }
 
@@ -116,10 +87,6 @@ fun DashboardScreen(
 @Composable
 fun DashboardScreenPreview() {
     AllenaremobileTheme {
-        DashboardScreen(
-            onLogout = {},
-            onNavigateToLogGymWorkout = {},
-            onNavigateToLogRunningWorkout = {}
-        )
+        DashboardScreen()
     }
 }
