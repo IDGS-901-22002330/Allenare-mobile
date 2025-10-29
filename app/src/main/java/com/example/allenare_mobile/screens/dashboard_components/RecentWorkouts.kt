@@ -1,5 +1,7 @@
 package com.example.allenare_mobile.screens.dashboard_components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +13,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,16 +30,28 @@ fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningW
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF9C4))
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text("Entrenamientos recientes", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-            Spacer(modifier = Modifier.height(16.dp))
-            if (combinedList.isEmpty()){
-                Text("No hay entrenamientos registrados.")
-            } else {
-                combinedList.forEach {
-                    Text(it)
+        val gradientColors = listOf(Color(0xFFFFEB3B), Color(0xFFFAEBC9))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = gradientColors
+                    )
+                )
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Entrenamientos recientes", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Spacer(modifier = Modifier.height(16.dp))
+                if (combinedList.isEmpty()){
+                    Text("No hay entrenamientos registrados.")
+                } else {
+                    combinedList.forEach {
+                        Text(it)
+                    }
                 }
             }
         }
@@ -48,8 +63,8 @@ fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningW
 fun RecentWorkoutsPreview() {
     AllenaremobileTheme {
         RecentWorkouts(
-            gymWorkouts = listOf(GymWorkout(type = "Pecho"), GymWorkout(type = "Pierna")),
-            runningWorkouts = listOf(RunningWorkout(distance = 5.0))
+            gymWorkouts = listOf(GymWorkout(type = "Pecho", duration = 60), GymWorkout(type = "Pierna", duration = 90)),
+            runningWorkouts = listOf(RunningWorkout(distance = 5.0, duration = 30))
         )
     }
 }

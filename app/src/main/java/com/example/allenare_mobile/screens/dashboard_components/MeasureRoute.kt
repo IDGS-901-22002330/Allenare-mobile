@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -31,24 +32,36 @@ fun MeasureRoute() {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFC8E6C9))
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text("Medir ruta", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-            Spacer(modifier = Modifier.height(8.dp))
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color.Gray)
-            ) {
-                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background), // Placeholder
-                    contentDescription = "Map Placeholder",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+        val gradientColors = listOf(Color(0xFF76E078), Color(0xFFD2FDD4))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = gradientColors
+                    )
                 )
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Medir ruta", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Spacer(modifier = Modifier.height(8.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color.Gray)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_launcher_background), // Placeholder
+                        contentDescription = "Map Placeholder",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                }
             }
         }
     }

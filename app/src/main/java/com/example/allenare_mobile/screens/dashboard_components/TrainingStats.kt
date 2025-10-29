@@ -26,16 +26,16 @@ fun TrainingStats(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningWo
             title = "Días de gimnasio",
             value = "${gymWorkouts.size}",
             icon = Icons.Default.FitnessCenter,
-            backgroundColor = Color(0xFFFFCDD2),
-            modifier = Modifier.weight(1f).height(110.dp)
+            gradientColors = listOf(Color(0xFFE57373), Color(0xFFFFCDD2)),
+            modifier = Modifier.weight(1f).height(120.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
         StatCard(
             title = "Total de km recorridos",
             value = "${runningWorkouts.sumOf { it.distance }.toInt()} km",
             icon = Icons.Default.DirectionsRun,
-            backgroundColor = Color(0xFFF9E79F),
-            modifier = Modifier.weight(1f).height(110.dp)
+            gradientColors = listOf(Color(0xFFE57373), Color(0xFFFFCDD2)),
+            modifier = Modifier.weight(1f)
         )
     }
 }
