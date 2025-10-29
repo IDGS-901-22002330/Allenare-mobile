@@ -5,6 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.allenare_mobile.screens.DashboardScreen
+import com.example.allenare_mobile.screens.LogGymWorkoutScreen
+import com.example.allenare_mobile.screens.LogRunningWorkoutScreen
 import com.example.allenare_mobile.screens.LoginScreen
 import com.example.allenare_mobile.screens.RegisterScreen
 
@@ -49,6 +51,28 @@ fun AppNavigation(startDestination: String) {
                     navController.navigate("login") {
                         popUpTo("dashboard") { inclusive = true }
                     }
+                },
+                onNavigateToLogGymWorkout = {
+                    navController.navigate("log_gym_workout")
+                },
+                onNavigateToLogRunningWorkout = {
+                    navController.navigate("log_running_workout")
+                }
+            )
+        }
+
+        composable("log_gym_workout") {
+            LogGymWorkoutScreen(
+                onWorkoutLogged = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("log_running_workout") {
+            LogRunningWorkoutScreen(
+                onWorkoutLogged = {
+                    navController.popBackStack()
                 }
             )
         }
