@@ -30,6 +30,7 @@ fun MainNavigationGraph(
         composable(BottomNavItem.LogGym.route) { LogGymWorkoutScreen { navController.navigate(BottomNavItem.Dashboard.route) } }
         composable(BottomNavItem.LogRun.route) { LogRunningWorkoutScreen { navController.navigate(BottomNavItem.Dashboard.route) } }
         composable(BottomNavItem.Profile.route) { ProfileScreen(onLogout = onLogout) }
+        composable(BottomNavItem.Library.route) { ContentNavigationGraph() }
     }
 }
 

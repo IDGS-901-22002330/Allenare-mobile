@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.DirectionsRun
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.LibraryBooks
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,6 +41,7 @@ sealed class BottomNavItem(val route: String, val icon: ImageVector, val title: 
     object LogGym : BottomNavItem("log_gym_workout", Icons.Default.FitnessCenter, "Gimnasio")
     object LogRun : BottomNavItem("log_running_workout", Icons.Default.DirectionsRun, "Carrera")
     object Profile : BottomNavItem("profile", Icons.Default.AccountCircle, "Perfil")
+    object Library : BottomNavItem("library", Icons.Default.LibraryBooks, "Biblioteca")
 }
 
 @Composable
@@ -48,6 +50,7 @@ fun BottomNavBar(navController: NavController) {
         BottomNavItem.Dashboard,
         BottomNavItem.LogGym,
         BottomNavItem.LogRun,
+        BottomNavItem.Library,
         BottomNavItem.Profile
     )
 
