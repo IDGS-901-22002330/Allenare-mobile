@@ -23,34 +23,69 @@ import com.example.allenare_mobile.model.GymWorkout
 import com.example.allenare_mobile.model.RunningWorkout
 import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
 
+
 @Composable
-fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningWorkout>) {
-    val combinedList = (gymWorkouts.map { "Gimnasio: '${it.title}' - ${it.duration} min" } + runningWorkouts.map { "Running: ${it.distance} km- ${it.duration} min"  }).take(5)
+fun RecentWorkouts(
+    gymWorkouts: List<GymWorkout>,
+    runningWorkouts: List<RunningWorkout>
+) {
+    // Converción de segundos → minutos y formato de texto
+    val combinedList = (
+            gymWorkouts.map { workout ->
+                "Gimnasio: '${workout.title}' — ${workout.duration} min"
+            } +
+                    runningWorkouts.map { run ->
+                        val durationMinutes = (run.duration / 60.0).toInt()
+                        val formattedDistance = String.format("%.2f", run.distance)
+                        "Carrera: ${formattedDistance} km — ${durationMinutes} min"
+                    }
+            ).take(5)
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
-        val gradientColors = listOf(Color(0xFFFFEB3B), Color(0xFFFAEBC9))
+        // Fondo
+        val gradientColors = listOf(
+            Color(0xFFFFEB3B),
+            Color(0xFFF9D976),
+            Color(0xFFFBC2EB)
+        )
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    brush = Brush.verticalGradient(
-                        colors = gradientColors
-                    )
+                    brush = Brush.verticalGradient(colors = gradientColors)
                 )
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("Entrenamientos recientes", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                Spacer(modifier = Modifier.height(16.dp))
-                if (combinedList.isEmpty()){
-                    Text("No hay entrenamientos registrados.")
+                Text(
+                    text = "Entrenamientos recientes",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    color = Color(0xFF333333)
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                if (combinedList.isEmpty()) {
+                    Text(
+                        text = "No hay entrenamientos registrados.",
+                        color = Color.Gray,
+                        fontSize = 14.sp
+                    )
                 } else {
-                    combinedList.forEach {
-                        Text(it)
+                    combinedList.forEach { workout ->
+                        Text(
+                            text = workout,
+                            fontSize = 15.sp,
+                            color = Color(0xFF212121),
+                            modifier = Modifier.padding(vertical = 4.dp)
+                        )
                     }
                 }
             }
@@ -63,8 +98,14 @@ fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningW
 fun RecentWorkoutsPreview() {
     AllenaremobileTheme {
         RecentWorkouts(
-            gymWorkouts = listOf(GymWorkout(title = "Pecho", duration = 60), GymWorkout(title = "Pierna", duration = 90)),
-            runningWorkouts = listOf(RunningWorkout(distance = 5.0, duration = 30))
+            gymWorkouts = listOf(
+                GymWorkout(title = "Pecho", duration = 60),
+                GymWorkout(title = "Pierna", duration = 90)
+            ),
+            runningWorkouts = listOf(
+                RunningWorkout(distance = 5.0, duration = 1800), // 1800 seg = 30 min
+                RunningWorkout(distance = 10.5, duration = 4200) // 4200 seg = 70 min
+            )
         )
     }
 }
