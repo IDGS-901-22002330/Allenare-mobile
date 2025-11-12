@@ -29,7 +29,6 @@ fun MainNavigationGraph(
         modifier = modifier
     ) {
         composable(BottomNavItem.Dashboard.route) { DashboardScreen(modifier = modifier) }
-        composable(BottomNavItem.LogGym.route) { LogGymWorkoutScreen { navController.navigate(BottomNavItem.Dashboard.route) } }
         composable(BottomNavItem.LogRun.route) { LogRunningWorkoutScreen { navController.navigate(BottomNavItem.Dashboard.route) } }
         composable(BottomNavItem.AllRuns.route) { AllRunsScreen( navController = navController,  onWorkoutLogged = { navController.navigate(BottomNavItem.Dashboard.route) }) }
         composable("active_run/{runId}") { backStackEntry -> val runId = backStackEntry.arguments?.getString("runId") ?: ""

@@ -29,7 +29,6 @@ import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
 
 sealed class BottomNavItem(val route: String, val icon: ImageVector, val title: String) {
     object Dashboard : BottomNavItem("dashboard", Icons.Default.Home, "Dashboard")
-    object LogGym : BottomNavItem("log_gym_workout", Icons.Default.FitnessCenter, "Gimnasio")
     object LogRun : BottomNavItem("log_running_workout", Icons.Default.AddLocationAlt, "Carrera")
     object AllRuns : BottomNavItem("all_runs", Icons.Default.DirectionsRun, "Mis Carreras")
     object Library : BottomNavItem("library", Icons.Default.LibraryBooks, "Biblioteca")
@@ -40,7 +39,6 @@ sealed class BottomNavItem(val route: String, val icon: ImageVector, val title: 
 fun BottomNavBar(navController: NavController) {
     val items = listOf(
         BottomNavItem.Dashboard,
-        BottomNavItem.LogGym,
         BottomNavItem.LogRun,
         BottomNavItem.AllRuns,
         BottomNavItem.Library,
