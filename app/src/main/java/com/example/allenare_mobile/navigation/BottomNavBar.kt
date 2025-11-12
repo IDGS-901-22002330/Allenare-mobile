@@ -1,26 +1,17 @@
 package com.example.allenare_mobile.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.AddLocationAlt
 import androidx.compose.material.icons.filled.DirectionsRun
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LibraryBooks
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,9 +30,10 @@ import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
 sealed class BottomNavItem(val route: String, val icon: ImageVector, val title: String) {
     object Dashboard : BottomNavItem("dashboard", Icons.Default.Home, "Dashboard")
     object LogGym : BottomNavItem("log_gym_workout", Icons.Default.FitnessCenter, "Gimnasio")
-    object LogRun : BottomNavItem("log_running_workout", Icons.Default.DirectionsRun, "Carrera")
-    object Profile : BottomNavItem("profile", Icons.Default.AccountCircle, "Perfil")
+    object LogRun : BottomNavItem("log_running_workout", Icons.Default.AddLocationAlt, "Carrera")
+    object AllRuns : BottomNavItem("all_runs", Icons.Default.DirectionsRun, "Mis Carreras")
     object Library : BottomNavItem("library", Icons.Default.LibraryBooks, "Biblioteca")
+    object Profile : BottomNavItem("profile", Icons.Default.AccountCircle, "Perfil")
 }
 
 @Composable
@@ -50,6 +42,7 @@ fun BottomNavBar(navController: NavController) {
         BottomNavItem.Dashboard,
         BottomNavItem.LogGym,
         BottomNavItem.LogRun,
+        BottomNavItem.AllRuns,
         BottomNavItem.Library,
         BottomNavItem.Profile
     )
@@ -71,12 +64,10 @@ fun BottomNavBar(navController: NavController) {
                     brush = Brush.linearGradient(
                         colors = listOf(Color(0xFFB2EBF2), Color(0xFF83C2C2), Color(0xFF63A4A4))
                     )
-
                 )
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 horizontalArrangement = Arrangement.SpaceAround,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -94,7 +85,10 @@ fun BottomNavBar(navController: NavController) {
                         Icon(
                             imageVector = screen.icon,
                             contentDescription = screen.title,
-                            tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                            tint = if (isSelected)
+                                MaterialTheme.colorScheme.primary
+                            else
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                         )
                     }
                 }
