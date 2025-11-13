@@ -3,20 +3,25 @@ package com.example.allenare_mobile.screens
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.allenare_mobile.model.Exercise
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -31,6 +36,13 @@ fun ExerciseDetailScreen(
     var exercise by remember { mutableStateOf<Exercise?>(null) }
     var isLoading by remember { mutableStateOf(true) }
     var currentVideoId by remember { mutableStateOf<String?>(null) }
+
+    // --- NUEVO: ESTADO PARA EL CONTADOR DE SETS ---
+    var setCount by remember { mutableStateOf(0) }
+    val context = LocalContext.current
+    val db = Firebase.firestore
+    val user = Firebase.auth.currentUser
+    // ---------------------------------------------
 
     // Esta función extrae el ID del video (sin cambios)
     fun extractVideoId(url: String): String? {
@@ -52,6 +64,7 @@ fun ExerciseDetailScreen(
         }
     }
 
+    // Carga los datos del ejercicio (sin cambios)
     LaunchedEffect(exerciseId) {
         if (exerciseId.isBlank()) {
             isLoading = false
@@ -64,7 +77,6 @@ fun ExerciseDetailScreen(
             exercise = loadedExercise
 
             if (loadedExercise != null) {
-                // Sacamos el ID del video y lo guardamos
                 currentVideoId = extractVideoId(loadedExercise.mediaURL)
             }
 
@@ -100,47 +112,30 @@ fun ExerciseDetailScreen(
                 Text("Ejercicio no encontrado.", modifier = Modifier.padding(16.dp))
             } else {
 
-                // --- LÓGICA DE VIDEO ACTUALIZADA CON BOTÓN ---
+                // Lógica para mostrar video/imagen (sin cambios)
                 val url = exercise!!.mediaURL
-
                 if (currentVideoId != null) {
-
-                    // 1. Obtenemos el contexto para poder lanzar el Intent
-                    val context = LocalContext.current
-
-                    // 2. Creamos el "Intent" (la orden de abrir el link)
-                    //    Usamos la URL original completa que viene de Firebase
+                    // ... (El código de tu botón de YouTube se queda aquí)
                     val openYouTubeIntent = remember(url) {
                         Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     }
-
-                    // 3. Mostramos el texto y el botón
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 24.dp), // Un poco de espacio
+                            .padding(vertical = 24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(
-                            text = "¿Quieres ver cómo hacerlo?",
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Spacer(Modifier.height(12.dp))
                         Button(onClick = {
                             try {
-                                // 4. Al hacer clic, le decimos al contexto que abra el link
                                 context.startActivity(openYouTubeIntent)
                             } catch (e: Exception) {
-                                // Por si no tiene app de Youtube o navegador
                                 Log.e("OpenLink", "No se pudo abrir el enlace: $url", e)
                             }
                         }) {
                             Text("Ver video en YouTube")
                         }
                     }
-
                 } else if (url.isNotBlank()) {
-                    // Si no es un enlace de YouTube, intentamos mostrar una imagen (esto se queda igual)
                     AsyncImage(
                         model = url,
                         contentDescription = "Imagen del ejercicio",
@@ -148,28 +143,102 @@ fun ExerciseDetailScreen(
                         contentScale = ContentScale.Crop
                     )
                 }
-                // ---------------------------------
 
-                // El resto de la UI no cambia
+                // Detalles del ejercicio (sin cambios)
                 Column(Modifier.padding(16.dp)) {
                     Text(
                         text = exercise!!.nombre,
                         style = MaterialTheme.typography.headlineMedium
                     )
                     Spacer(Modifier.height(8.dp))
-
                     Text(
                         text = exercise!!.grupoMuscular,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.primary
                     )
                     Spacer(Modifier.height(16.dp))
-
                     Text(
                         text = exercise!!.descripcion,
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
+
+                // --- NUEVO: EL TRACKER DE SETS ---
+                Divider(modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp))
+
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        "¿Cuántos sets completaste?",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(Modifier.height(16.dp))
+
+                    // Contador
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        // Botón de menos
+                        IconButton(
+                            onClick = { if (setCount > 0) setCount-- },
+                            enabled = setCount > 0
+                        ) {
+                            Icon(Icons.Default.Remove, "Quitar set")
+                        }
+
+                        // Número
+                        Text(
+                            text = "$setCount",
+                            style = MaterialTheme.typography.headlineLarge,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        // Botón de más
+                        IconButton(onClick = { setCount++ }) {
+                            Icon(Icons.Default.Add, "Añadir set")
+                        }
+                    }
+
+                    Spacer(Modifier.height(24.dp))
+
+                    // Botón de guardar
+                    Button(
+                        onClick = {
+                            if (user != null && exercise != null) {
+                                // 1. Creamos el objeto para el historial
+                                val logEntry = hashMapOf(
+                                    "userId" to user.uid,
+                                    "exerciseId" to exercise!!.exerciseID,
+                                    "exerciseName" to exercise!!.nombre,
+                                    "sets" to setCount,
+                                    "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+                                )
+
+                                // 2. Lo guardamos en la nueva colección
+                                db.collection("exercise_logs")
+                                    .add(logEntry)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(context, "¡Ejercicio guardado!", Toast.LENGTH_SHORT).show()
+                                        setCount = 0 // Resetea el contador
+                                        onBack() // Vuelve a la lista
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                                    }
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth().height(50.dp),
+                        enabled = setCount > 0 // Solo se puede guardar si es más de 0
+                    ) {
+                        Text("Guardar Entrenamiento")
+                    }
+                    Spacer(Modifier.height(32.dp))
+                }
+                // --- FIN DEL TRACKER ---
             }
         }
     }
