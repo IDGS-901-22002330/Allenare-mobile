@@ -25,7 +25,7 @@ import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
 
 @Composable
 fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningWorkout>) {
-    val combinedList = (gymWorkouts.map { "Gimnasio: '${it.title}' - ${it.duration} min" } + runningWorkouts.map { "Running: ${it.distance} km- ${it.duration} min"  }).take(5)
+    val combinedList = (gymWorkouts.map { "Gimnasio: '${it.type}' - ${it.duration} min" } + runningWorkouts.map { "Running: ${it.distance} km- ${it.duration} min"  }).take(5)
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -63,7 +63,7 @@ fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningW
 fun RecentWorkoutsPreview() {
     AllenaremobileTheme {
         RecentWorkouts(
-            gymWorkouts = listOf(GymWorkout(title = "Pecho", duration = 60), GymWorkout(title = "Pierna", duration = 90)),
+            gymWorkouts = listOf(GymWorkout(type = "Pecho", duration = 60), GymWorkout(type = "Pierna", duration = 90)),
             runningWorkouts = listOf(RunningWorkout(distance = 5.0, duration = 30))
         )
     }
