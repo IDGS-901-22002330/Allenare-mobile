@@ -9,9 +9,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.allenare_mobile.screens.ActiveRunScreen
 import com.example.allenare_mobile.screens.DashboardScreen
 import com.example.allenare_mobile.screens.LogGymWorkoutScreen
 import com.example.allenare_mobile.screens.LogRunningWorkoutScreen
+import com.example.allenare_mobile.screens.AllRunsScreen
 import com.example.allenare_mobile.screens.ProfileScreen
 import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
 
@@ -27,8 +29,11 @@ fun MainNavigationGraph(
         modifier = modifier
     ) {
         composable(BottomNavItem.Dashboard.route) { DashboardScreen(modifier = modifier) }
-        composable(BottomNavItem.LogGym.route) { LogGymWorkoutScreen { navController.navigate(BottomNavItem.Dashboard.route) } }
         composable(BottomNavItem.LogRun.route) { LogRunningWorkoutScreen { navController.navigate(BottomNavItem.Dashboard.route) } }
+        composable(BottomNavItem.AllRuns.route) { AllRunsScreen( navController = navController,  onWorkoutLogged = { navController.navigate(BottomNavItem.Dashboard.route) }) }
+        composable("active_run/{runId}") { backStackEntry -> val runId = backStackEntry.arguments?.getString("runId") ?: ""
+            ActiveRunScreen(navController = navController, runId = runId)
+        }
         composable(BottomNavItem.Profile.route) { ProfileScreen(onLogout = onLogout) }
         composable(BottomNavItem.Library.route) { ContentNavigationGraph() }
     }

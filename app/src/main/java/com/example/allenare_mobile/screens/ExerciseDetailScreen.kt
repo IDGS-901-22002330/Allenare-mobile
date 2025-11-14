@@ -64,7 +64,6 @@ fun ExerciseDetailScreen(
             exercise = loadedExercise
 
             if (loadedExercise != null) {
-                // Sacamos el ID del video y lo guardamos
                 currentVideoId = extractVideoId(loadedExercise.mediaURL)
             }
 
@@ -100,47 +99,27 @@ fun ExerciseDetailScreen(
                 Text("Ejercicio no encontrado.", modifier = Modifier.padding(16.dp))
             } else {
 
-                // --- LÓGICA DE VIDEO ACTUALIZADA CON BOTÓN ---
                 val url = exercise!!.mediaURL
-
                 if (currentVideoId != null) {
-
-                    // 1. Obtenemos el contexto para poder lanzar el Intent
-                    val context = LocalContext.current
-
-                    // 2. Creamos el "Intent" (la orden de abrir el link)
-                    //    Usamos la URL original completa que viene de Firebase
                     val openYouTubeIntent = remember(url) {
                         Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     }
-
-                    // 3. Mostramos el texto y el botón
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 24.dp), // Un poco de espacio
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(
-                            text = "¿Quieres ver cómo hacerlo?",
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Spacer(Modifier.height(12.dp))
                         Button(onClick = {
                             try {
-                                // 4. Al hacer clic, le decimos al contexto que abra el link
                                 context.startActivity(openYouTubeIntent)
                             } catch (e: Exception) {
-                                // Por si no tiene app de Youtube o navegador
                                 Log.e("OpenLink", "No se pudo abrir el enlace: $url", e)
                             }
                         }) {
                             Text("Ver video en YouTube")
                         }
                     }
-
                 } else if (url.isNotBlank()) {
-                    // Si no es un enlace de YouTube, intentamos mostrar una imagen (esto se queda igual)
                     AsyncImage(
                         model = url,
                         contentDescription = "Imagen del ejercicio",
@@ -148,23 +127,19 @@ fun ExerciseDetailScreen(
                         contentScale = ContentScale.Crop
                     )
                 }
-                // ---------------------------------
 
-                // El resto de la UI no cambia
                 Column(Modifier.padding(16.dp)) {
                     Text(
                         text = exercise!!.nombre,
                         style = MaterialTheme.typography.headlineMedium
                     )
                     Spacer(Modifier.height(8.dp))
-
                     Text(
                         text = exercise!!.grupoMuscular,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.primary
                     )
                     Spacer(Modifier.height(16.dp))
-
                     Text(
                         text = exercise!!.descripcion,
                         style = MaterialTheme.typography.bodyLarge
