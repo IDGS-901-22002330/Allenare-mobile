@@ -15,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.allenare_mobile.model.Exercise
+import com.example.gemini_ai.GeminiViewModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -26,11 +28,17 @@ import kotlinx.coroutines.tasks.await
 @Composable
 fun ExerciseDetailScreen(
     exerciseId: String,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    geminiViewModel: GeminiViewModel = viewModel()
 ) {
     var exercise by remember { mutableStateOf<Exercise?>(null) }
     var isLoading by remember { mutableStateOf(true) }
     var currentVideoId by remember { mutableStateOf<String?>(null) }
+
+    // State for Gemini AI feature
+    var userQuestion by remember { mutableStateOf("") }
+    val aiResponse by geminiViewModel.aiResponse.collectAsState()
+    val isAiLoading by geminiViewModel.isLoading.collectAsState()
 
     // Esta función extrae el ID del video (sin cambios)
     fun extractVideoId(url: String): String? {
@@ -101,12 +109,13 @@ fun ExerciseDetailScreen(
 
                 val url = exercise!!.mediaURL
                 if (currentVideoId != null) {
+                    val context = LocalContext.current
                     val openYouTubeIntent = remember(url) {
                         Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     }
                     Column(
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Button(onClick = {
@@ -144,6 +153,60 @@ fun ExerciseDetailScreen(
                         text = exercise!!.descripcion,
                         style = MaterialTheme.typography.bodyLarge
                     )
+
+                    // --- Start of Gemini AI Section ---
+                    Spacer(Modifier.height(24.dp))
+                    Divider()
+                    Spacer(Modifier.height(16.dp))
+
+                    Text(
+                        "Asistente IA de Gemini",
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                    Spacer(Modifier.height(8.dp))
+
+                    OutlinedTextField(
+                        value = userQuestion,
+                        onValueChange = { userQuestion = it },
+                        label = { Text("Pregúntale a Gemini sobre este ejercicio...") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Spacer(Modifier.height(8.dp))
+
+                    Button(
+                        onClick = {
+                            if (userQuestion.isNotBlank()) {
+                                geminiViewModel.askQuestion(exercise!!.nombre, userQuestion)
+                            }
+                        },
+                        modifier = Modifier.align(Alignment.End),
+                        enabled = !isAiLoading && userQuestion.isNotBlank()
+                    ) {
+                        Text("Enviar")
+                    }
+
+                    Spacer(Modifier.height(16.dp))
+
+                    if (isAiLoading) {
+                        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                            CircularProgressIndicator()
+                        }
+                    }
+
+                    aiResponse?.let {
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            elevation = CardDefaults.cardElevation(2.dp),
+                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                        ) {
+                            Text(
+                                text = it,
+                                modifier = Modifier.padding(16.dp),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    }
+                    // --- End of Gemini AI Section ---
                 }
             }
         }
