@@ -1,14 +1,16 @@
 package com.example.allenare_mobile.screens
 
+import android.util.Log // --- AÑADIDO ---
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack // --- CORREGIDO (era AutoMirrored) ---
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.allenare_mobile.model.RoutineExercise
+import com.google.firebase.auth.ktx.auth // --- AÑADIDO ---
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
@@ -34,6 +36,11 @@ fun RoutinePlayerScreen(
     var remainingTime by remember { mutableStateOf(0) }
     var isRestButtonEnabled by remember { mutableStateOf(false) }
 
+    // --- LÓGICA DE HISTORIAL RE-AÑADIDA ---
+    val db = Firebase.firestore
+    val user = Firebase.auth.currentUser
+    // -------------------------------------
+
     LaunchedEffect(routineId) {
         if (routineId.isBlank()) return@LaunchedEffect
         try {
@@ -45,9 +52,12 @@ fun RoutinePlayerScreen(
                 .await()
             steps = snapshot.toObjects<RoutineExercise>()
         } catch (e: Exception) {
+            // --- AÑADIDO (para ver errores) ---
+            Log.e("RoutinePlayer", "Error al cargar los pasos: ${e.message}", e)
         }
     }
 
+    // ... (El LaunchedEffect de playerState no cambia) ...
     LaunchedEffect(playerState) {
         if (playerState is PlayerState.Resting) {
             val duration = (playerState as PlayerState.Resting).duration
@@ -87,6 +97,7 @@ fun RoutinePlayerScreen(
             if (currentStep == null) {
                 CircularProgressIndicator()
             } else {
+                // ... (El when(state) no cambia) ...
                 when (val state = playerState) {
                     is PlayerState.Exercising -> {
                         Text(currentStep.exerciseNombre, style = MaterialTheme.typography.headlineLarge)
@@ -106,7 +117,10 @@ fun RoutinePlayerScreen(
 
                 if (playerState != PlayerState.Finished) {
 
+                    // ... (El isButtonEnabled no cambia) ...
                     val isButtonEnabled = when (playerState) {
+                        is PlayerState.Exercising -> true
+                        is PlayerState.Resting -> isRestButtonEnabled
                         else -> false
                     }
 
@@ -119,7 +133,24 @@ fun RoutinePlayerScreen(
                                     currentStepIndex++
                                     playerState = PlayerState.Exercising
                                 } else {
+                                    // --- LÓGICA DE HISTORIAL RE-AÑADIDA ---
                                     playerState = PlayerState.Finished
+
+                                    if (user != null) {
+                                        val historyEntry = hashMapOf(
+                                            "userId" to user.uid,
+                                            "routineId" to routineId,
+                                            // Usamos el nombre del primer ejercicio como nombre de rutina (o puedes mejorarlo)
+                                            "routineName" to (steps.firstOrNull()?.exerciseNombre ?: "Rutina"),
+                                            "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+                                        )
+
+                                        db.collection("routine_completions")
+                                            .add(historyEntry)
+                                            .addOnSuccessListener { Log.d("RoutinePlayer", "Historial guardado") }
+                                            .addOnFailureListener { e -> Log.w("RoutinePlayer", "Error al guardar historial", e) }
+                                    }
+                                    // --- FIN DE LA LÓGICA ---
                                 }
                             }
                         },

@@ -3,22 +3,27 @@ package com.example.allenare_mobile.screens
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast // --- AÑADIDO ---
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add // --- AÑADIDO ---
+import androidx.compose.material.icons.filled.Remove // --- AÑADIDO ---
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight // --- AÑADIDO ---
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.allenare_mobile.model.Exercise
 import com.example.gemini_ai.GeminiViewModel
+import com.google.firebase.auth.ktx.auth // --- AÑADIDO ---
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -35,12 +40,19 @@ fun ExerciseDetailScreen(
     var isLoading by remember { mutableStateOf(true) }
     var currentVideoId by remember { mutableStateOf<String?>(null) }
 
+    // --- LÓGICA DE TRACKER RE-AÑADIDA ---
+    var setCount by remember { mutableStateOf(0) }
+    val db = Firebase.firestore
+    val user = Firebase.auth.currentUser
+    val context = LocalContext.current
+    // ------------------------------------
+
     // State for Gemini AI feature
     var userQuestion by remember { mutableStateOf("") }
     val aiResponse by geminiViewModel.aiResponse.collectAsState()
     val isAiLoading by geminiViewModel.isLoading.collectAsState()
 
-    // Esta función extrae el ID del video (sin cambios)
+    // ... (la función extractVideoId no cambia) ...
     fun extractVideoId(url: String): String? {
         return try {
             val uri = java.net.URI(url)
@@ -60,6 +72,7 @@ fun ExerciseDetailScreen(
         }
     }
 
+    // ... (LaunchedEffect no cambia) ...
     LaunchedEffect(exerciseId) {
         if (exerciseId.isBlank()) {
             isLoading = false
@@ -107,6 +120,7 @@ fun ExerciseDetailScreen(
                 Text("Ejercicio no encontrado.", modifier = Modifier.padding(16.dp))
             } else {
 
+                // ... (La lógica del botón de YouTube no cambia) ...
                 val url = exercise!!.mediaURL
                 if (currentVideoId != null) {
                     val context = LocalContext.current
@@ -138,6 +152,7 @@ fun ExerciseDetailScreen(
                 }
 
                 Column(Modifier.padding(16.dp)) {
+                    // ... (Los Text de nombre, grupo muscular y descripción no cambian) ...
                     Text(
                         text = exercise!!.nombre,
                         style = MaterialTheme.typography.headlineMedium
@@ -154,7 +169,71 @@ fun ExerciseDetailScreen(
                         style = MaterialTheme.typography.bodyLarge
                     )
 
-                    // --- Start of Gemini AI Section ---
+
+                    // --- TRACKER DE SETS RE-AÑADIDO ---
+                    Divider(modifier = Modifier.padding(horizontal = 0.dp, vertical = 24.dp))
+
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            "¿Cuántos sets completaste?",
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(Modifier.height(16.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            IconButton(
+                                onClick = { if (setCount > 0) setCount-- },
+                                enabled = setCount > 0
+                            ) {
+                                Icon(Icons.Default.Remove, "Quitar set")
+                            }
+                            Text(
+                                text = "$setCount",
+                                style = MaterialTheme.typography.headlineLarge,
+                                fontWeight = FontWeight.Bold
+                            )
+                            IconButton(onClick = { setCount++ }) {
+                                Icon(Icons.Default.Add, "Añadir set")
+                            }
+                        }
+                        Spacer(Modifier.height(24.dp))
+                        Button(
+                            onClick = {
+                                if (user != null && exercise != null) {
+                                    val logEntry = hashMapOf(
+                                        "userId" to user.uid,
+                                        "exerciseId" to exercise!!.exerciseID,
+                                        "exerciseName" to exercise!!.nombre,
+                                        "sets" to setCount,
+                                        "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+                                    )
+                                    db.collection("exercise_logs")
+                                        .add(logEntry)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(context, "¡Ejercicio guardado!", Toast.LENGTH_SHORT).show()
+                                            setCount = 0
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                                        }
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth().height(50.dp),
+                            enabled = setCount > 0
+                        ) {
+                            Text("Guardar Entrenamiento")
+                        }
+                    }
+                    // --- FIN DEL TRACKER ---
+
+
+                    // --- La sección de Gemini AI se queda igual ---
                     Spacer(Modifier.height(24.dp))
                     Divider()
                     Spacer(Modifier.height(16.dp))
@@ -163,6 +242,7 @@ fun ExerciseDetailScreen(
                         "Asistente IA de Gemini",
                         style = MaterialTheme.typography.headlineSmall
                     )
+                    // ... (El resto de la UI de Gemini no cambia) ...
                     Spacer(Modifier.height(8.dp))
 
                     OutlinedTextField(
@@ -206,7 +286,7 @@ fun ExerciseDetailScreen(
                             )
                         }
                     }
-                    // --- End of Gemini AI Section ---
+                    // --- Fin de la sección de Gemini AI ---
                 }
             }
         }

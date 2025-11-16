@@ -51,7 +51,6 @@ fun BottomNavBar(navController: NavController) {
     val items = listOf(
         BottomNavItem.Dashboard,
         BottomNavItem.Chat,
-        BottomNavItem.LogGym,
         BottomNavItem.LogRun,
         BottomNavItem.Library,
         BottomNavItem.Profile
