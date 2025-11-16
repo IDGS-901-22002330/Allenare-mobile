@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Chat
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.AddLocationAlt
+import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.DirectionsRun
 import androidx.compose.material.icons.filled.FitnessCenter
@@ -43,6 +46,7 @@ sealed class BottomNavItem(val route: String, val icon: ImageVector, val title: 
     object LogRun : BottomNavItem("log_running_workout", Icons.Default.DirectionsRun, "Carrera")
     object AllRuns : BottomNavItem("all_runs", Icons.Default.List, "All Runs")
     object Library : BottomNavItem("library", Icons.Default.LibraryBooks, "Library")
+    object LeaderBoards: BottomNavItem("leaderBoards", Icons.Default.BarChart, "LeaderBoards")
     object Profile : BottomNavItem("profile", Icons.Default.AccountCircle, "Perfil")
 }
 
@@ -53,6 +57,7 @@ fun BottomNavBar(navController: NavController) {
         BottomNavItem.Chat,
         BottomNavItem.LogRun,
         BottomNavItem.Library,
+        BottomNavItem.LeaderBoards,
         BottomNavItem.Profile
     )
 

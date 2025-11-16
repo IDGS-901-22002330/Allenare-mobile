@@ -15,6 +15,7 @@ import com.example.allenare_mobile.screens.DashboardScreen
 import com.example.allenare_mobile.screens.LogGymWorkoutScreen
 import com.example.allenare_mobile.screens.LogRunningWorkoutScreen
 import com.example.allenare_mobile.screens.AllRunsScreen
+import com.example.allenare_mobile.screens.LeaderBoardsScreen
 import com.example.allenare_mobile.screens.ProfileScreen
 import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
 
@@ -37,6 +38,7 @@ fun MainNavigationGraph(
             ActiveRunScreen(navController = navController, runId = runId)
         }
         composable(BottomNavItem.Profile.route) { ProfileScreen(onLogout = onLogout) }
+        composable(BottomNavItem.LeaderBoards.route) { LeaderBoardsScreen() }
         composable(BottomNavItem.Library.route) { ContentNavigationGraph() }
     }
 }
