@@ -38,6 +38,7 @@ fun LogRunningWorkoutScreen(onWorkoutLogged: () -> Unit) {
     var name by remember { mutableStateOf("") }
 
     var locationPermissionGranted by remember { mutableStateOf(false) }
+
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { granted -> locationPermissionGranted = granted }
@@ -48,16 +49,18 @@ fun LogRunningWorkoutScreen(onWorkoutLogged: () -> Unit) {
 
     val cameraPositionState = rememberCameraPositionState()
 
-    // Ubicación actual y mover cámara
+    // Centrar cámara en ubicación actual si hay permiso
     LaunchedEffect(locationPermissionGranted) {
         if (locationPermissionGranted) {
-            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-                location?.let {
-                    val userLocation = LatLng(it.latitude, it.longitude)
-                    cameraPositionState.position = CameraPosition.fromLatLngZoom(userLocation, 15f)
+            LocationServices.getFusedLocationProviderClient(context)
+                .lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    location?.let {
+                        val userLocation = LatLng(it.latitude, it.longitude)
+                        cameraPositionState.position =
+                            CameraPosition.fromLatLngZoom(userLocation, 15f)
+                    }
                 }
-            }
         }
     }
 
@@ -65,29 +68,66 @@ fun LogRunningWorkoutScreen(onWorkoutLogged: () -> Unit) {
         floatingActionButton = {
             Button(
                 onClick = {
-                    if (routePoints.isNotEmpty() && name.isNotBlank()) {
-                        val routeMap = routePoints.map { mapOf("lat" to it.latitude, "lng" to it.longitude) }
-                        val workout = RunningWorkout(
-                            userId = user?.uid ?: "",
-                            name = name,
-                            distance = distanceKm,
-                            duration = durationSeconds,
-                            route = routeMap,
-                            estatus = 0 // no completado
-                        )
-
-                        db.collection("running_workouts")
-                            .add(workout)
-                            .addOnSuccessListener {
-                                Toast.makeText(context, "Ruta guardada correctamente", Toast.LENGTH_SHORT).show()
-                                onWorkoutLogged()
-                            }
-                            .addOnFailureListener {
-                                Toast.makeText(context, "Error al guardar la ruta", Toast.LENGTH_SHORT).show()
-                            }
-                    } else {
-                        Toast.makeText(context, "Agrega un nombre y puntos de ruta", Toast.LENGTH_SHORT).show()
+                    if (user == null) {
+                        Toast.makeText(context, "Debes iniciar sesión.", Toast.LENGTH_SHORT).show()
+                        return@Button
                     }
+
+                    if (!isValidName(name)) {
+                        Toast.makeText(
+                            context,
+                            "Nombre inválido (3-40 caracteres sin caracteres especiales).",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@Button
+                    }
+
+                    if (routePoints.size < 2) {
+                        Toast.makeText(
+                            context,
+                            "Agrega al menos dos puntos para crear una ruta.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@Button
+                    }
+
+                    if (routePoints.size > 200) {
+                        Toast.makeText(
+                            context,
+                            "Demasiados puntos en la ruta (máx 200).",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@Button
+                    }
+
+                    val cleanedRoute = routePoints.map {
+                        mapOf(
+                            "lat" to String.format("%.6f", it.latitude).toDouble(),
+                            "lng" to String.format("%.6f", it.longitude).toDouble()
+                        )
+                    }
+
+                    val safeDistance = if (distanceKm.isNaN() || distanceKm < 0) 0.0 else distanceKm
+                    val safeDuration = durationSeconds.coerceIn(60L, 5 * 3600L)
+
+                    val workout = RunningWorkout(
+                        userId = user.uid,
+                        name = name.trim(),
+                        distance = safeDistance,
+                        duration = safeDuration,
+                        route = cleanedRoute,
+                        estatus = 0
+                    )
+
+                    db.collection("running_workouts")
+                        .add(workout)
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Ruta guardada correctamente", Toast.LENGTH_SHORT).show()
+                            onWorkoutLogged()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(context, "Error al guardar la ruta", Toast.LENGTH_SHORT).show()
+                        }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
@@ -95,11 +135,13 @@ fun LogRunningWorkoutScreen(onWorkoutLogged: () -> Unit) {
             }
         }
     ) { paddingValues ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
+
             Text(
                 text = "Dale un nombre a tu ruta",
                 style = MaterialTheme.typography.titleMedium,
@@ -108,12 +150,20 @@ fun LogRunningWorkoutScreen(onWorkoutLogged: () -> Unit) {
 
             OutlinedTextField(
                 value = name,
-                onValueChange = { name = it },
+                onValueChange = { if (it.length <= 40) name = it },
                 label = { Text("Nombre de la ruta") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             )
+
+            if (!locationPermissionGranted) {
+                Text(
+                    "Activa el permiso de ubicación para usar el mapa.",
+                    color = Color.Red,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
 
             GoogleMap(
                 modifier = Modifier
@@ -123,10 +173,14 @@ fun LogRunningWorkoutScreen(onWorkoutLogged: () -> Unit) {
                 properties = MapProperties(isMyLocationEnabled = locationPermissionGranted),
                 uiSettings = MapUiSettings(zoomControlsEnabled = true, myLocationButtonEnabled = true),
                 onMapClick = { latLng ->
-                    routePoints = routePoints + latLng
-                    if (routePoints.size > 1) {
-                        distanceKm = calculateTotalDistance(routePoints)
-                        durationSeconds = ((distanceKm / 8.0) * 3600).toLong() // aprox. 8 km/h
+                    if (routePoints.size < 200) {
+                        routePoints = routePoints + latLng
+                        if (routePoints.size > 1) {
+                            distanceKm = calculateTotalDistance(routePoints)
+                            durationSeconds = ((distanceKm / 8.0) * 3600).toLong()
+                        }
+                    } else {
+                        Toast.makeText(context, "Límite máximo de 200 puntos alcanzado.", Toast.LENGTH_SHORT).show()
                     }
                 }
             ) {
@@ -189,7 +243,13 @@ fun LogRunningWorkoutScreen(onWorkoutLogged: () -> Unit) {
     }
 }
 
-// Calculo distancia total entre los puntos
+// Validaciones
+
+fun isValidName(name: String): Boolean {
+    val regex = Regex("^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9 ]{3,40}$")
+    return regex.matches(name.trim())
+}
+
 private fun calculateTotalDistance(points: List<LatLng>): Double {
     if (points.size < 2) return 0.0
     var total = 0.0
@@ -199,13 +259,13 @@ private fun calculateTotalDistance(points: List<LatLng>): Double {
     return total
 }
 
-// Fórmula: distancia entre coordenadas
 private fun haversine(p1: LatLng, p2: LatLng): Double {
     val R = 6371.0
-    val lat1 = Math.toRadians(p1.latitude)
-    val lat2 = Math.toRadians(p2.latitude)
     val dLat = Math.toRadians(p2.latitude - p1.latitude)
     val dLon = Math.toRadians(p2.longitude - p1.longitude)
+    val lat1 = Math.toRadians(p1.latitude)
+    val lat2 = Math.toRadians(p2.latitude)
+
     val a = sin(dLat / 2).pow(2.0) + cos(lat1) * cos(lat2) * sin(dLon / 2).pow(2.0)
     return 2 * R * atan2(sqrt(a), sqrt(1 - a))
 }

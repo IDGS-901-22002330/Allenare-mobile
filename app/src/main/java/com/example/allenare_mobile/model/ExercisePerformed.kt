@@ -1,9 +1,14 @@
 package com.example.allenare_mobile.model
 
-data class Exercise(
-    val exerciseID: String = "", // ID del documento
-    val nombre: String = "",
-    val descripcion: String = "",
-    val mediaURL: String = "",      // Link a Firebase Storage (video o img)
-    val grupoMuscular: String = ""
+import com.google.firebase.firestore.ServerTimestamp
+import java.util.Date
+
+
+data class ExercisePerformed(
+    val userId: String = "", // ID del usuario
+    val name: String = "", // Nombre del ejercicio o ruta
+    val cantidad: Double = 0.0, // Repeticiones hechas o distancia recorrida (km)
+    val tiempoSegundos: Long = 0, // Tiempo total en segundos
+    @ServerTimestamp
+    val fechaRealizacion: Date? = null // Fecha en que se completó
 )

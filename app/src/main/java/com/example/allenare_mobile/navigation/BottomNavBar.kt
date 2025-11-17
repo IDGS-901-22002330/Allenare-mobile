@@ -6,6 +6,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.AddLocationAlt
+import androidx.compose.material.icons.filled.AssignmentTurnedIn
 import androidx.compose.material.icons.filled.DirectionsRun
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.Home
@@ -29,9 +30,10 @@ import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
 
 sealed class BottomNavItem(val route: String, val icon: ImageVector, val title: String) {
     object Dashboard : BottomNavItem("dashboard", Icons.Default.Home, "Dashboard")
-    object LogRun : BottomNavItem("log_running_workout", Icons.Default.AddLocationAlt, "Carrera")
+    object LogRun : BottomNavItem("log_running_workout", Icons.Default.AddLocationAlt, "Registrar Carrera")
     object AllRuns : BottomNavItem("all_runs", Icons.Default.DirectionsRun, "Mis Carreras")
     object Library : BottomNavItem("library", Icons.Default.LibraryBooks, "Biblioteca")
+    object Records: BottomNavItem("records", Icons.Default.AssignmentTurnedIn, "Mis Records")
     object Profile : BottomNavItem("profile", Icons.Default.AccountCircle, "Perfil")
 }
 
@@ -42,6 +44,7 @@ fun BottomNavBar(navController: NavController) {
         BottomNavItem.LogRun,
         BottomNavItem.AllRuns,
         BottomNavItem.Library,
+        BottomNavItem.Records,
         BottomNavItem.Profile
     )
 
