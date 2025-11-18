@@ -26,9 +26,8 @@ android {
 }
 
 dependencies {
-    implementation("com.google.ai.client.generativeai:generativeai:0.1.0")
+    implementation("com.google.ai.client.generativeai:generativeai:0.8.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    // Androidx Compose dependencies for a potential UI in this module
     implementation(platform("androidx.compose:compose-bom:2024.05.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")

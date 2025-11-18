@@ -1,14 +1,13 @@
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.google.gms.google.services)
+    id("com.google.gms.google-services")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
     namespace = "com.example.allenare_mobile"
-    compileSdk = 35
+    compileSdk = 34
 
 
     defaultConfig {
@@ -17,6 +16,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -39,21 +39,18 @@ android {
     buildFeatures {
         compose = true
     }
+     composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
 }
 
 dependencies {
-    implementation(project(":gemini_ai"))
-    implementation("com.google.accompanist:accompanist-permissions:0.35.0-alpha")
-    implementation("com.google.android.gms:play-services-maps:18.2.0")
-    implementation("com.google.android.gms:play-services-location:21.0.1")
-    implementation("com.google.maps.android:maps-compose:4.3.0")
-    implementation("com.google.maps:google-maps-services:2.2.0")
-    implementation("com.google.maps.android:android-maps-utils:2.3.0")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-storage-ktx") // <-- DEPENDENCIA AÑADIDA
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -63,7 +60,17 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation(libs.androidx.ui)
+
+    // Dependencias para Mapas y Ubicación
+    implementation("com.google.android.gms:play-services-location:21.2.0")
+    implementation("com.google.maps.android:maps-compose:4.3.3")
+    implementation("com.google.maps.android:maps-utils-ktx:3.4.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
+
+    // Coil para imágenes y conexión con el módulo de Gemini
+    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation(project(":gemini_ai"))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -71,6 +78,6 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    implementation("io.coil-kt:coil-compose:2.6.0")
     implementation("androidx.compose.material:material-icons-extended-android:1.6.7")
+    implementation("com.google.ai.client.generativeai:generativeai:0.6.0") // Gemini AI (ACTUALIZADO)
 }

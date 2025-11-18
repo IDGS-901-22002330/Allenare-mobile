@@ -25,7 +25,8 @@ import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
 
 @Composable
 fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningWorkout>) {
-    val combinedList = (gymWorkouts.map { "Gimnasio: '${it.type}' - ${it.duration} min" } + runningWorkouts.map { "Running: ${it.distance} km- ${it.duration} min"  }).take(5)
+    // Usamos 'title' en lugar del obsoleto 'type'
+    val combinedList = (gymWorkouts.map { "Gimnasio: '${it.title}' - ${it.duration} min" } + runningWorkouts.map { "Running: ${it.distance} km - ${it.duration} min"  }).take(5)
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -63,7 +64,8 @@ fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningW
 fun RecentWorkoutsPreview() {
     AllenaremobileTheme {
         RecentWorkouts(
-            gymWorkouts = listOf(GymWorkout(type = "Pecho", duration = 60), GymWorkout(type = "Pierna", duration = 90)),
+            // Usamos 'title' en la preview también
+            gymWorkouts = listOf(GymWorkout(title = "Día de Pecho", duration = 60), GymWorkout(title = "Día de Pierna", duration = 90)),
             runningWorkouts = listOf(RunningWorkout(distance = 5.0, duration = 30))
         )
     }
