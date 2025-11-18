@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -229,6 +230,10 @@ fun RoutineLibraryScreen(
                                     // Validación para evitar crash si no hay ID
                                     if (routine.routineID.isNotBlank()) {
                                         onNavigateToPlayer(routine.routineID)
+                                    } else {
+                                        // Si no pasa nada, es porque entra aquí.
+                                        // Probablemente tus rutinas asignadas en Firestore NO tienen el campo 'routineID' relleno.
+                                        Log.e("RoutineLibrary", "Error: Rutina sin ID")
                                     }
                                 }
                             )
