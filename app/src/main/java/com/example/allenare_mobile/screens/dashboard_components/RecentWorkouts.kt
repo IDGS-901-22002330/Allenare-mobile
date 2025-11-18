@@ -19,15 +19,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.allenare_mobile.model.GymWorkout
-import com.example.allenare_mobile.model.RunningWorkout
 import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
+import com.example.allenare_mobile.viewmodel.RecentWorkoutItem
 
 @Composable
-fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningWorkout>) {
-    // Usamos 'title' en lugar del obsoleto 'type'
-    val combinedList = (gymWorkouts.map { "Gimnasio: '${it.title}' - ${it.duration} min" } + runningWorkouts.map { "Running: ${it.distance} km - ${it.duration} min"  }).take(5)
-
+fun RecentWorkouts(recentWorkouts: List<RecentWorkoutItem>) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -47,11 +43,11 @@ fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningW
             Column(modifier = Modifier.padding(16.dp)) {
                 Text("Entrenamientos recientes", fontWeight = FontWeight.Bold, fontSize = 18.sp)
                 Spacer(modifier = Modifier.height(16.dp))
-                if (combinedList.isEmpty()){
-                    Text("No hay entrenamientos registrados.")
+                if (recentWorkouts.isEmpty()) {
+                    Text("No hay entrenamientos registrados esta semana.")
                 } else {
-                    combinedList.forEach {
-                        Text(it)
+                    recentWorkouts.forEach { workout ->
+                        Text(workout.description)
                     }
                 }
             }
@@ -64,9 +60,11 @@ fun RecentWorkouts(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningW
 fun RecentWorkoutsPreview() {
     AllenaremobileTheme {
         RecentWorkouts(
-            // Usamos 'title' en la preview también
-            gymWorkouts = listOf(GymWorkout(title = "Día de Pecho", duration = 60), GymWorkout(title = "Día de Pierna", duration = 90)),
-            runningWorkouts = listOf(RunningWorkout(distance = 5.0, duration = 30))
+            recentWorkouts = listOf(
+                RecentWorkoutItem("Gimnasio: Día de Pecho", null),
+                RecentWorkoutItem("Carrera: 5.0 km", null),
+                RecentWorkoutItem("Gimnasio: Día de Pierna", null)
+            )
         )
     }
 }

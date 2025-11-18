@@ -1,15 +1,16 @@
 package com.example.allenare_mobile.model
 
+import com.google.firebase.firestore.PropertyName
 import com.google.firebase.firestore.ServerTimestamp
 import java.util.Date
 
 data class GymWorkout(
-    val userId: String = "",
-    val title: String = "",
-    val routineType: String = "", // Campo que antes era 'type'
-    val exercises: String = "",
-    val duration: Long = 0,      // en minutos
-    val description: String = "",
+    @get:PropertyName("userId") @set:PropertyName("userId") var userId: String = "",
+    @get:PropertyName("routineName") @set:PropertyName("routineName") var title: String = "", // Mapeado desde routineName
+    var routineType: String = "",
+    var exercises: String = "",
+    var duration: Long = 0,
+    var description: String = "",
     @ServerTimestamp
-    val date: Date? = null
+    @get:PropertyName("timestamp") @set:PropertyName("timestamp") var date: Date? = null // Mapeado desde timestamp
 )
