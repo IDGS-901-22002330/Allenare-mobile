@@ -2,9 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 🔹 Permisos de ubicación -->
+    <!-- Permisos de ubicación -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Allenaremobile">
 
-        <!-- 🔹 Actividad principal -->
+        <!--  Actividad principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -28,10 +32,11 @@
             </intent-filter>
         </activity>
 
-        <!-- 🔹 Clave de la API de Google Maps -->
+        <!-- Clave de la API de Google Maps -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDiTqSU5M5FjsQ-cFDIipDXcYvsfDTp7GM" />
+        <receiver android:name=".utils.ReminderReceiver" />
 
     </application>
 

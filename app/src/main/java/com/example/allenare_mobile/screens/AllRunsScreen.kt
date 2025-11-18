@@ -20,6 +20,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.maps.android.SphericalUtil
 import com.google.maps.android.compose.*
@@ -39,30 +40,34 @@ data class RunData(
 fun AllRunsScreen(navController: NavController, onWorkoutLogged: () -> Unit) {
     val locationPermission = rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION)
     val firestore = FirebaseFirestore.getInstance()
+    val currentUser = FirebaseAuth.getInstance().currentUser
     var runs by remember { mutableStateOf<List<RunData>>(emptyList()) }
     val context = androidx.compose.ui.platform.LocalContext.current
     val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
-    // Rutas
+    // Cargar las rutas del usuario
     LaunchedEffect(Unit) {
         if (locationPermission.status.isGranted) {
             try {
-                val result = firestore.collection("running_workouts")
-                    .orderBy("date", com.google.firebase.firestore.Query.Direction.DESCENDING)
-                    .get()
-                    .await()
+                currentUser?.let { user ->
+                    val result = firestore.collection("running_workouts")
+                        .whereEqualTo("userId", user.uid)
+                        .orderBy("date", com.google.firebase.firestore.Query.Direction.DESCENDING)
+                        .get()
+                        .await()
 
-                runs = result.documents.mapNotNull { doc ->
-                    val name = doc.getString("name") ?: "Sin nombre"
-                    val dist = (doc.get("distance") as? Number)?.toDouble() ?: 0.0
-                    val dur = (doc.get("duration") as? Number)?.toLong() ?: 0L
-                    val points = doc.get("route") as? List<Map<String, Double>>
-                    val latLngList = points?.mapNotNull { p ->
-                        val lat = p["lat"]
-                        val lng = p["lng"]
-                        if (lat != null && lng != null) LatLng(lat, lng) else null
-                    } ?: emptyList()
-                    RunData(doc.id, name, dist, dur, latLngList)
+                    runs = result.documents.mapNotNull { doc ->
+                        val name = doc.getString("name") ?: "Sin nombre"
+                        val dist = (doc.get("distance") as? Number)?.toDouble() ?: 0.0
+                        val dur = (doc.get("duration") as? Number)?.toLong() ?: 0L
+                        val points = doc.get("route") as? List<Map<String, Double>>
+                        val latLngList = points?.mapNotNull { p ->
+                            val lat = p["lat"]
+                            val lng = p["lng"]
+                            if (lat != null && lng != null) LatLng(lat, lng) else null
+                        } ?: emptyList()
+                        RunData(doc.id, name, dist, dur, latLngList)
+                    }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -130,7 +135,7 @@ fun AllRunsScreen(navController: NavController, onWorkoutLogged: () -> Unit) {
 
                                 Spacer(Modifier.height(12.dp))
 
-                                // Distancia actual
+                                // Distancia actual al inicio
                                 LaunchedEffect(Unit) {
                                     val location = fusedLocationClient.lastLocation.await()
                                     location?.let {
@@ -139,7 +144,7 @@ fun AllRunsScreen(navController: NavController, onWorkoutLogged: () -> Unit) {
                                             userLatLng,
                                             run.routePoints.first()
                                         )
-                                        canStart = distanceToStart <= 500
+                                        canStart = distanceToStart <= 100
                                     }
                                 }
 
@@ -154,7 +159,7 @@ fun AllRunsScreen(navController: NavController, onWorkoutLogged: () -> Unit) {
                                     }
                                 } else {
                                     Text(
-                                        "Actualmente te encuentras demasiado lejos acercate al punto de inicio para comenzar el recorrido.",
+                                        "Actualmente te encuentras demasiado lejos. Acércate al punto de inicio para comenzar el recorrido.",
                                         color = MaterialTheme.colorScheme.error
                                     )
                                 }

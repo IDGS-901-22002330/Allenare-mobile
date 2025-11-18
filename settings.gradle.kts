@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Allenare-mobile"
 include(":app")
+include(":gemini_ai")
