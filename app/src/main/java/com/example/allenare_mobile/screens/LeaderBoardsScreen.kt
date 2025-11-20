@@ -101,7 +101,7 @@ fun LeaderBoardsScreen(modifier: Modifier = Modifier) {
             .map { (userId, items) ->
                 ExerciseSummary(
                     userId = userId,
-                    nombre = items.firstOrNull()?.exercise ?: "",
+                    nombre = items.firstOrNull()?.exerciseName ?: "",
                     cantidad = items.sumOf { it.sets }
                 )
             }
@@ -111,7 +111,7 @@ fun LeaderBoardsScreen(modifier: Modifier = Modifier) {
 
     val DominadasSummary = remember(exercises) {
         exercises
-            .filter { it.exercise == "Dominadas" }
+            .filter { it.exerciseName == "Dominadas" }
             .groupBy { it.userId }
             .map { (userId, items) ->
                 ExerciseSummary(

@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.AddLocationAlt
+import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.DirectionsRun
 import androidx.compose.material.icons.filled.FitnessCenter
@@ -42,6 +43,7 @@ sealed class BottomNavItem(val route: String, val icon: ImageVector, val title: 
     object AllRuns : BottomNavItem("all_runs", Icons.Default.DirectionsRun, "Mis Carreras")
     object Library : BottomNavItem("library", Icons.Default.LibraryBooks, "Biblioteca")
     object Chat : BottomNavItem("chat", Icons.Default.Chat, "Chat AI")
+    object LeaderBoard: BottomNavItem("leaderboard", Icons.Default.BarChart, "LeaderBoards")
     object Profile : BottomNavItem("profile", Icons.Default.AccountCircle, "Perfil")
 }
 
@@ -53,6 +55,7 @@ fun BottomNavBar(navController: NavController) {
         BottomNavItem.AllRuns,
         BottomNavItem.Library,
         BottomNavItem.Chat,
+        BottomNavItem.LeaderBoard,
         BottomNavItem.Profile
     )
 

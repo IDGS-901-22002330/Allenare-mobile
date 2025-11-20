@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -8,7 +9,7 @@ plugins {
 android {
     signingConfigs {
         getByName("debug") {
-            storeFile = file("C:\\Users\\andre.cabrera\\.android\\debug.keystore")
+            storeFile = file("C:\\Users\\Alejandro\\.android\\debug.keystore")
             storePassword = "android"
             keyAlias = "androiddebugkey"
             keyPassword = "android"
@@ -57,7 +58,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("com.google.firebase:firebase-storage-ktx") 
+    implementation("com.google.firebase:firebase-storage-ktx")
 
     // Dependencia para Google Sign-In
     implementation("com.google.android.gms:play-services-auth:21.2.0")
@@ -91,4 +92,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation("androidx.compose.material:material-icons-extended-android:1.6.7")
     implementation("com.google.ai.client.generativeai:generativeai:0.6.0") // Gemini AI (ACTUALIZADO)
+    implementation("com.patrykandpatrick.vico:compose:1.13.1")
+    implementation("com.patrykandpatrick.vico:compose-m3:1.13.1")
+    implementation("com.patrykandpatrick.vico:core:1.13.1")
 }

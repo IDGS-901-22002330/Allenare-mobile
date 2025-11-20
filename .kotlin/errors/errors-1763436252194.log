@@ -1,0 +1,1035 @@
+kotlin version: 2.0.21
+error message: org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error: Exception during IR lowering
+File being compiled: C:/Users/Alejandro/Desktop/Allenare/Allenare-mobile/app/src/main/java/com/example/allenare_mobile/screens/ProfileScreen.kt
+The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:47)
+	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException(CodegenUtil.kt:253)
+	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException$default(CodegenUtil.kt:236)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invokeSequential(performByIrFile.kt:65)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(performByIrFile.kt:52)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(performByIrFile.kt:38)
+	at org.jetbrains.kotlin.backend.common.phaser.NamedCompilerPhase.phaseBody(CompilerPhase.kt:166)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:27)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:14)
+	at org.jetbrains.kotlin.backend.common.phaser.NamedCompilerPhase.phaseBody(CompilerPhase.kt:166)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.CompilerPhaseKt.invokeToplevel(CompilerPhase.kt:62)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.invokeCodegen(JvmIrCodegenFactory.kt:371)
+	at org.jetbrains.kotlin.codegen.CodegenFactory.generateModule(CodegenFactory.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.generateModuleInFrontendIRMode(JvmIrCodegenFactory.kt:433)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.generateCodeFromIr(jvmCompilerPipeline.kt:246)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.compileModulesUsingFrontendIrAndLightTree(jvmCompilerPipeline.kt:142)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:148)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:43)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:103)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:49)
+	at org.jetbrains.kotlin.cli.common.CLITool.exec(CLITool.kt:101)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:464)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:73)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.doCompile(IncrementalCompilerRunner.kt:506)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compileImpl(IncrementalCompilerRunner.kt:423)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.tryCompileIncrementally$lambda$9$compile(IncrementalCompilerRunner.kt:249)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.tryCompileIncrementally(IncrementalCompilerRunner.kt:267)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compile(IncrementalCompilerRunner.kt:120)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.execIncrementalCompiler(CompileServiceImpl.kt:675)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.access$execIncrementalCompiler(CompileServiceImpl.kt:92)
+	at org.jetbrains.kotlin.daemon.CompileServiceImpl.compile(CompileServiceImpl.kt:1660)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.RuntimeException: Exception while generating code for:
+FUN name:WeeklyBarChart visibility:public modality:FINAL <> (data:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+  annotations:
+    Composable
+    ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+  VALUE_PARAMETER name:data index:0 type:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>
+  VALUE_PARAMETER name:$composer index:1 type:androidx.compose.runtime.Composer? [assignable]
+  VALUE_PARAMETER name:$changed index:2 type:kotlin.Int
+  BLOCK_BODY
+    BLOCK type=kotlin.Unit origin=null
+      SET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.Unit origin=null
+        CALL 'public abstract fun startRestartGroup (key: kotlin.Int): androidx.compose.runtime.Composer declared in androidx.compose.runtime.Composer' type=androidx.compose.runtime.Composer origin=null
+          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+          key: CONST Int type=kotlin.Int value=121000852
+      CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+        composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+        sourceInformation: CONST String type=kotlin.String value="C(WeeklyBarChart)167@6276L38,168@6333L34,170@6394L282,170@6373L303,181@6729L1157,181@6711L1175:ProfileScreen.kt#mxquxr"
+    VAR name:$dirty type:kotlin.Int [val]
+      GET_VAR '$changed: kotlin.Int declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.Int origin=null
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR '$changed: kotlin.Int declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=6
+          arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.Int origin=null
+            other: WHEN type=kotlin.Int origin=IF
+              BRANCH
+                if: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                  value: GET_VAR 'data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                then: CONST Int type=kotlin.Int value=4
+              BRANCH
+                if: CONST Boolean type=kotlin.Boolean value=true
+                then: CONST Int type=kotlin.Int value=2
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+            $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+              arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.Int origin=null
+                other: CONST Int type=kotlin.Int value=3
+              arg1: CONST Int type=kotlin.Int value=2
+          arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+            $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+              $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+        then: BLOCK type=kotlin.Unit origin=null
+          WHEN type=kotlin.Unit origin=IF
+            BRANCH
+              if: CALL 'public final fun isTraceInProgress (): kotlin.Boolean declared in androidx.compose.runtime.ComposerKt' type=kotlin.Boolean origin=null
+              then: CALL 'public final fun traceEventStart (key: kotlin.Int, dirty1: kotlin.Int, dirty2: kotlin.Int, info: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                key: CONST Int type=kotlin.Int value=121000852
+                dirty1: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.Int origin=null
+                dirty2: CONST Int type=kotlin.Int value=-1
+                info: CONST String type=kotlin.String value="com.example.allenare_mobile.screens.WeeklyBarChart (ProfileScreen.kt:166)"
+          VAR name:chartEntryModelProducer type:com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer [val]
+            BLOCK type=com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer origin=null
+              BLOCK type=kotlin.Unit origin=null
+                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                  key: CONST Int type=kotlin.Int value=951212769
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="CC(remember):ProfileScreen.kt#9igjgp"
+              VAR IR_TEMPORARY_VARIABLE name:tmp0_group type:com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer [val]
+                CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer origin=null
+                  <T>: com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer
+                  $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                  invalid: CONST Boolean type=kotlin.Boolean value=false
+                  block: BLOCK type=kotlin.Function0<com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer> origin=LAMBDA
+                    COMPOSITE type=kotlin.Unit origin=null
+                    FUNCTION_REFERENCE 'private final fun WeeklyBarChart$lambda$7 (): com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer declared in com.example.allenare_mobile.screens.ProfileScreenKt' type=kotlin.Function0<com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer> origin=INLINE_LAMBDA reflectionTarget=null
+              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+              GET_VAR 'val tmp0_group: com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer origin=null
+          VAR name:hasData type:androidx.compose.runtime.MutableState<kotlin.Boolean> [val]
+            BLOCK type=androidx.compose.runtime.MutableState<kotlin.Boolean> origin=null
+              BLOCK type=kotlin.Unit origin=null
+                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                  key: CONST Int type=kotlin.Int value=951214589
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="CC(remember):ProfileScreen.kt#9igjgp"
+              VAR IR_TEMPORARY_VARIABLE name:tmp1_group type:androidx.compose.runtime.MutableState<kotlin.Boolean> [val]
+                CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=androidx.compose.runtime.MutableState<kotlin.Boolean> origin=null
+                  <T>: androidx.compose.runtime.MutableState<kotlin.Boolean>
+                  $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                  invalid: CONST Boolean type=kotlin.Boolean value=false
+                  block: BLOCK type=kotlin.Function0<androidx.compose.runtime.MutableState<kotlin.Boolean>> origin=LAMBDA
+                    COMPOSITE type=kotlin.Unit origin=null
+                    FUNCTION_REFERENCE 'private final fun WeeklyBarChart$lambda$8 (): androidx.compose.runtime.MutableState<kotlin.Boolean> declared in com.example.allenare_mobile.screens.ProfileScreenKt' type=kotlin.Function0<androidx.compose.runtime.MutableState<kotlin.Boolean>> origin=INLINE_LAMBDA reflectionTarget=null
+              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+              GET_VAR 'val tmp1_group: androidx.compose.runtime.MutableState<kotlin.Boolean> [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.MutableState<kotlin.Boolean> origin=null
+          CALL 'public final fun LaunchedEffect (key1: kotlin.Any?, block: @[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit>, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.EffectsKt' type=kotlin.Unit origin=null
+            key1: GET_VAR 'data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+            block: BLOCK type=@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> origin=null
+              BLOCK type=kotlin.Unit origin=null
+                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                  key: CONST Int type=kotlin.Int value=951216789
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="CC(remember):ProfileScreen.kt#9igjgp"
+              VAR IR_TEMPORARY_VARIABLE name:tmp2_group type:@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> [val]
+                CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> origin=null
+                  <T>: @[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit>
+                  $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                  invalid: CALL 'public final fun or (other: kotlin.Boolean): kotlin.Boolean [infix] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                    $this: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                      value: GET_VAR 'data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                    other: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                      value: GET_VAR 'val chartEntryModelProducer: com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer origin=null
+                  block: BLOCK type=kotlin.Function0<@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit>> origin=LAMBDA
+                    COMPOSITE type=kotlin.Unit origin=null
+                    FUNCTION_REFERENCE 'private final fun WeeklyBarChart$lambda$9 ($data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>, $chartEntryModelProducer: com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer, $hasData: androidx.compose.runtime.MutableState<kotlin.Boolean>): @[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> declared in com.example.allenare_mobile.screens.ProfileScreenKt' type=kotlin.Function0<@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit>> origin=INLINE_LAMBDA reflectionTarget=null
+                      $data: GET_VAR 'data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                      $chartEntryModelProducer: GET_VAR 'val chartEntryModelProducer: com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer origin=null
+                      $hasData: GET_VAR 'val hasData: androidx.compose.runtime.MutableState<kotlin.Boolean> [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.MutableState<kotlin.Boolean> origin=null
+              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+              GET_VAR 'val tmp2_group: @[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> origin=null
+            $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+            $changed: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: CONST Int type=kotlin.Int value=14
+              other: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.Int origin=null
+          BLOCK type=kotlin.Unit origin=null
+            COMPOSITE type=kotlin.Unit origin=null
+            WHEN type=kotlin.Unit origin=IF
+              BRANCH
+                if: CALL 'public abstract fun <get-value> (): T of androidx.compose.runtime.MutableState declared in androidx.compose.runtime.MutableState' type=kotlin.Boolean origin=GET_PROPERTY
+                  $this: GET_VAR 'val hasData: androidx.compose.runtime.MutableState<kotlin.Boolean> [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.MutableState<kotlin.Boolean> origin=null
+                then: BLOCK type=kotlin.Unit origin=null
+                  CALL 'public final fun ProvideChartStyle (chartStyle: com.patrykandpatrick.vico.compose.style.ChartStyle?, content: kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in com.patrykandpatrick.vico.compose.style.ChartStyleKt' type=kotlin.Unit origin=null
+                    chartStyle: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                      CONST Null type=kotlin.Nothing? value=null
+                    content: CALL 'public final fun rememberComposableLambda (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+                      key: CONST Int type=kotlin.Int value=-2083074959
+                      tracked: CONST Boolean type=kotlin.Boolean value=true
+                      block: BLOCK type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+                        CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+                          $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>
+                          CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> ($data:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>, $chartEntryModelProducer:com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer) returnType:com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> [primary]
+                            VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$data index:0 type:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>
+                            VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$chartEntryModelProducer index:1 type:com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer
+                            BLOCK_BODY
+                              SET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$data type:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> visibility:public/*package*/ [final] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=kotlin.Unit origin=INITIALIZER_OF_FIELD_FOR_CAPTURED_VALUE
+                                receiver: GET_VAR '<this>: com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+                                value: GET_VAR '$data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.<init>' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                              SET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$chartEntryModelProducer type:com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer visibility:public/*package*/ [final] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=kotlin.Unit origin=INITIALIZER_OF_FIELD_FOR_CAPTURED_VALUE
+                                receiver: GET_VAR '<this>: com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+                                value: GET_VAR '$chartEntryModelProducer: com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.<init>' type=com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer origin=null
+                              DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                              BLOCK type=kotlin.Unit origin=null
+                          FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+                            annotations:
+                              Composable
+                              ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+                            overridden:
+                              public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2
+                            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>
+                            VALUE_PARAMETER name:$composer index:0 type:androidx.compose.runtime.Composer? [assignable]
+                            VALUE_PARAMETER name:$changed index:1 type:kotlin.Int
+                            BLOCK_BODY
+                              CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                                composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                sourceInformation: CONST String type=kotlin.String value="C183@6774L66,187@6932L257,199@7461L274,194@7220L533,182@6743L1133:ProfileScreen.kt#mxquxr"
+                              WHEN type=kotlin.Unit origin=IF
+                                BRANCH
+                                  if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                                    arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                                      $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                                        arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                                          $this: GET_VAR '$changed: kotlin.Int declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=kotlin.Int origin=null
+                                          other: CONST Int type=kotlin.Int value=3
+                                        arg1: CONST Int type=kotlin.Int value=2
+                                    arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                                      $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                                        $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                  then: BLOCK type=kotlin.Unit origin=null
+                                    WHEN type=kotlin.Unit origin=IF
+                                      BRANCH
+                                        if: CALL 'public final fun isTraceInProgress (): kotlin.Boolean declared in androidx.compose.runtime.ComposerKt' type=kotlin.Boolean origin=null
+                                        then: CALL 'public final fun traceEventStart (key: kotlin.Int, dirty1: kotlin.Int, dirty2: kotlin.Int, info: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                                          key: CONST Int type=kotlin.Int value=-2083074959
+                                          dirty1: GET_VAR '$changed: kotlin.Int declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=kotlin.Int origin=null
+                                          dirty2: CONST Int type=kotlin.Int value=-1
+                                          info: CONST String type=kotlin.String value="com.example.allenare_mobile.screens.WeeklyBarChart.<anonymous> (ProfileScreen.kt:182)"
+                                    BLOCK type=kotlin.Unit origin=ARGUMENTS_REORDERING_FOR_CALL
+                                      VAR IR_TEMPORARY_VARIABLE name:tmp0_chart type:com.patrykandpatrick.vico.core.chart.column.ColumnChart [val]
+                                        CALL 'public final fun columnChart-DmG2kCk (columns: kotlin.collections.List<com.patrykandpatrick.vico.core.component.shape.LineComponent>?, spacing: androidx.compose.ui.unit.Dp, innerSpacing: androidx.compose.ui.unit.Dp, mergeMode: com.patrykandpatrick.vico.core.chart.column.ColumnChart.MergeMode?, decorations: kotlin.collections.List<com.patrykandpatrick.vico.core.chart.decoration.Decoration>?, persistentMarkers: kotlin.collections.Map<kotlin.Float, com.patrykandpatrick.vico.core.marker.Marker>?, targetVerticalAxisPosition: com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical?, dataLabel: com.patrykandpatrick.vico.core.component.text.TextComponent?, dataLabelVerticalPosition: com.patrykandpatrick.vico.core.component.text.VerticalPosition?, dataLabelValueFormatter: com.patrykandpatrick.vico.core.formatter.ValueFormatter?, dataLabelRotationDegrees: kotlin.Float, axisValuesOverrider: com.patrykandpatrick.vico.core.chart.values.AxisValuesOverrider<com.patrykandpatrick.vico.core.entry.ChartEntryModel>?, drawingModelInterpolator: com.patrykandpatrick.vico.core.entry.diff.DrawingModelInterpolator<com.patrykandpatrick.vico.core.chart.column.ColumnChartDrawingModel.ColumnInfo, com.patrykandpatrick.vico.core.chart.column.ColumnChartDrawingModel>?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): com.patrykandpatrick.vico.core.chart.column.ColumnChart declared in com.patrykandpatrick.vico.compose.chart.column.ColumnChartKt' type=com.patrykandpatrick.vico.core.chart.column.ColumnChart origin=null
+                                          columns: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          spacing: CALL 'public final fun <get-dp> (): androidx.compose.ui.unit.Dp [inline] declared in androidx.compose.ui.unit.DpKt' type=androidx.compose.ui.unit.Dp origin=GET_PROPERTY
+                                            $receiver: CONST Int type=kotlin.Int value=16
+                                          innerSpacing: COMPOSITE type=androidx.compose.ui.unit.Dp origin=DEFAULT_VALUE
+                                            CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.Dp origin=null
+                                              <T>: kotlin.Float
+                                              <R>: androidx.compose.ui.unit.Dp
+                                              v: CONST Float type=kotlin.Float value=0.0
+                                          mergeMode: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          decorations: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          persistentMarkers: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          targetVerticalAxisPosition: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          dataLabel: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          dataLabelVerticalPosition: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          dataLabelValueFormatter: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          dataLabelRotationDegrees: COMPOSITE type=kotlin.Float origin=DEFAULT_VALUE
+                                            CONST Float type=kotlin.Float value=0.0
+                                          axisValuesOverrider: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          drawingModelInterpolator: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                          $changed: CONST Int type=kotlin.Int value=48
+                                          $changed1: CONST Int type=kotlin.Int value=0
+                                          $default: CONST Int type=kotlin.Int value=8189
+                                      VAR IR_TEMPORARY_VARIABLE name:tmp1_startAxis type:com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start> [val]
+                                        CALL 'public final fun rememberStartAxis-qmNWa6M (label: com.patrykandpatrick.vico.core.component.text.TextComponent?, axis: com.patrykandpatrick.vico.core.component.shape.LineComponent?, tick: com.patrykandpatrick.vico.core.component.shape.LineComponent?, tickLength: androidx.compose.ui.unit.Dp, guideline: com.patrykandpatrick.vico.core.component.shape.LineComponent?, valueFormatter: com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start>?, sizeConstraint: com.patrykandpatrick.vico.core.axis.Axis.SizeConstraint?, horizontalLabelPosition: com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis.HorizontalLabelPosition?, verticalLabelPosition: com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis.VerticalLabelPosition?, itemPlacer: com.patrykandpatrick.vico.core.axis.AxisItemPlacer.Vertical?, labelRotationDegrees: kotlin.Float, titleComponent: com.patrykandpatrick.vico.core.component.text.TextComponent?, title: kotlin.CharSequence?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start> declared in com.patrykandpatrick.vico.compose.axis.vertical.VerticalAxisKt' type=com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start> origin=null
+                                          label: BLOCK type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                                            COMPOSITE type=kotlin.Unit origin=null
+                                              BLOCK type=kotlin.Unit origin=null
+                                                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                                                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                                  key: CONST Int type=kotlin.Int value=-399543116
+                                                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                                                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                                  sourceInformation: CONST String type=kotlin.String value="*189@7041L11"
+                                            VAR IR_TEMPORARY_VARIABLE name:tmp0_group type:com.patrykandpatrick.vico.core.component.text.TextComponent [val]
+                                              CALL 'public final fun textComponent (block: @[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit>): com.patrykandpatrick.vico.core.component.text.TextComponent [inline] declared in com.patrykandpatrick.vico.core.component.text.TextComponentKt' type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                                                block: BLOCK type=@[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit> origin=LAMBDA
+                                                  COMPOSITE type=kotlin.Unit origin=null
+                                                  FUNCTION_REFERENCE 'private final fun invoke$lambda$0 ($$composer: androidx.compose.runtime.Composer?): kotlin.Unit declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=@[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit> origin=INLINE_LAMBDA reflectionTarget=null
+                                                    $$composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                            COMPOSITE type=kotlin.Unit origin=null
+                                              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                                                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                            GET_VAR 'val tmp0_group: com.patrykandpatrick.vico.core.component.text.TextComponent [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                                          axis: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          tick: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          tickLength: COMPOSITE type=androidx.compose.ui.unit.Dp origin=DEFAULT_VALUE
+                                            CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.Dp origin=null
+                                              <T>: kotlin.Float
+                                              <R>: androidx.compose.ui.unit.Dp
+                                              v: CONST Float type=kotlin.Float value=0.0
+                                          guideline: CONST Null type=kotlin.Nothing? value=null
+                                          valueFormatter: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          sizeConstraint: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          horizontalLabelPosition: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          verticalLabelPosition: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          itemPlacer: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          labelRotationDegrees: COMPOSITE type=kotlin.Float origin=DEFAULT_VALUE
+                                            CONST Float type=kotlin.Float value=0.0
+                                          titleComponent: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          title: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                          $changed: CONST Int type=kotlin.Int value=24576
+                                          $changed1: CONST Int type=kotlin.Int value=0
+                                          $default: CONST Int type=kotlin.Int value=8174
+                                      VAR IR_TEMPORARY_VARIABLE name:tmp2_bottomAxis type:com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> [val]
+                                        CALL 'public final fun rememberBottomAxis-WSk2ftU (label: com.patrykandpatrick.vico.core.component.text.TextComponent?, axis: com.patrykandpatrick.vico.core.component.shape.LineComponent?, tick: com.patrykandpatrick.vico.core.component.shape.LineComponent?, tickLength: androidx.compose.ui.unit.Dp, guideline: com.patrykandpatrick.vico.core.component.shape.LineComponent?, valueFormatter: com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>?, sizeConstraint: com.patrykandpatrick.vico.core.axis.Axis.SizeConstraint?, titleComponent: com.patrykandpatrick.vico.core.component.text.TextComponent?, title: kotlin.CharSequence?, labelRotationDegrees: kotlin.Float, itemPlacer: com.patrykandpatrick.vico.core.axis.AxisItemPlacer.Horizontal?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> declared in com.patrykandpatrick.vico.compose.axis.horizontal.HorizontalAxisKt' type=com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                                          label: BLOCK type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                                            COMPOSITE type=kotlin.Unit origin=null
+                                              BLOCK type=kotlin.Unit origin=null
+                                                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                                                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                                  key: CONST Int type=kotlin.Int value=-399533868
+                                                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                                                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                                  sourceInformation: CONST String type=kotlin.String value="*196@7330L11"
+                                            VAR IR_TEMPORARY_VARIABLE name:tmp1_group type:com.patrykandpatrick.vico.core.component.text.TextComponent [val]
+                                              CALL 'public final fun textComponent (block: @[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit>): com.patrykandpatrick.vico.core.component.text.TextComponent [inline] declared in com.patrykandpatrick.vico.core.component.text.TextComponentKt' type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                                                block: BLOCK type=@[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit> origin=LAMBDA
+                                                  COMPOSITE type=kotlin.Unit origin=null
+                                                  FUNCTION_REFERENCE 'private final fun invoke$lambda$1 ($$composer: androidx.compose.runtime.Composer?): kotlin.Unit declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=@[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit> origin=INLINE_LAMBDA reflectionTarget=null
+                                                    $$composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                            COMPOSITE type=kotlin.Unit origin=null
+                                              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                                                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                            GET_VAR 'val tmp1_group: com.patrykandpatrick.vico.core.component.text.TextComponent [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                                          axis: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          tick: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          tickLength: COMPOSITE type=androidx.compose.ui.unit.Dp origin=DEFAULT_VALUE
+                                            CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.Dp origin=null
+                                              <T>: kotlin.Float
+                                              <R>: androidx.compose.ui.unit.Dp
+                                              v: CONST Float type=kotlin.Float value=0.0
+                                          guideline: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          valueFormatter: BLOCK type=com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                                            BLOCK type=kotlin.Unit origin=null
+                                              CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                                                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                                key: CONST Int type=kotlin.Int value=-399527572
+                                              CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                                                composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                                sourceInformation: CONST String type=kotlin.String value="CC(remember):ProfileScreen.kt#9igjgp"
+                                            VAR IR_TEMPORARY_VARIABLE name:tmp2_group type:com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> [val]
+                                              CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                                                <T>: com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>
+                                                $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                                invalid: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                                                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                                  value: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$data type:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> visibility:public/*package*/ [final] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                                                    receiver: GET_VAR '<this>: com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+                                                block: BLOCK type=kotlin.Function0<com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>> origin=LAMBDA
+                                                  COMPOSITE type=kotlin.Unit origin=null
+                                                  FUNCTION_REFERENCE 'private final fun invoke$lambda$3 ($data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>): com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=kotlin.Function0<com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>> origin=INLINE_LAMBDA reflectionTarget=null
+                                                    $data: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$data type:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> visibility:public/*package*/ [final] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                                                      receiver: GET_VAR '<this>: com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+                                            CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                                              $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                            GET_VAR 'val tmp2_group: com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                                          sizeConstraint: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          titleComponent: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          title: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          labelRotationDegrees: COMPOSITE type=kotlin.Float origin=DEFAULT_VALUE
+                                            CONST Float type=kotlin.Float value=0.0
+                                          itemPlacer: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                            CONST Null type=kotlin.Nothing? value=null
+                                          $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                          $changed: CONST Int type=kotlin.Int value=0
+                                          $changed1: CONST Int type=kotlin.Int value=0
+                                          $default: CONST Int type=kotlin.Int value=2014
+                                      VAR IR_TEMPORARY_VARIABLE name:tmp3_modifier type:androidx.compose.ui.Modifier [val]
+                                        CALL 'public final fun height-3ABfNKs (height: androidx.compose.ui.unit.Dp): androidx.compose.ui.Modifier declared in androidx.compose.foundation.layout.SizeKt' type=androidx.compose.ui.Modifier origin=null
+                                          $receiver: CALL 'public final fun fillMaxWidth$default (fraction: kotlin.Float, $mask0: kotlin.Int, $handler: kotlin.Any?): androidx.compose.ui.Modifier declared in androidx.compose.foundation.layout.SizeKt' type=androidx.compose.ui.Modifier origin=DEFAULT_DISPATCH_CALL
+                                            $receiver: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:Companion type:androidx.compose.ui.Modifier.Companion visibility:public [final,static] declared in androidx.compose.ui.Modifier' type=androidx.compose.ui.Modifier.Companion origin=null
+                                            fraction: COMPOSITE type=kotlin.Float origin=DEFAULT_VALUE
+                                              CONST Float type=kotlin.Float value=0.0
+                                            $mask0: CONST Int type=kotlin.Int value=1
+                                            $handler: CONST Null type=kotlin.Any? value=null
+                                          height: CALL 'public final fun <get-dp> (): androidx.compose.ui.unit.Dp [inline] declared in androidx.compose.ui.unit.DpKt' type=androidx.compose.ui.unit.Dp origin=GET_PROPERTY
+                                            $receiver: CONST Int type=kotlin.Int value=250
+                                      CALL 'public final fun Chart <Model> (chart: com.patrykandpatrick.vico.core.chart.Chart<Model of com.patrykandpatrick.vico.compose.chart.ChartsKt.Chart>, chartModelProducer: com.patrykandpatrick.vico.core.entry.ChartModelProducer<Model of com.patrykandpatrick.vico.compose.chart.ChartsKt.Chart>, modifier: androidx.compose.ui.Modifier?, startAxis: com.patrykandpatrick.vico.core.axis.AxisRenderer<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start>?, topAxis: com.patrykandpatrick.vico.core.axis.AxisRenderer<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Top>?, endAxis: com.patrykandpatrick.vico.core.axis.AxisRenderer<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.End>?, bottomAxis: com.patrykandpatrick.vico.core.axis.AxisRenderer<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>?, marker: com.patrykandpatrick.vico.core.marker.Marker?, markerVisibilityChangeListener: com.patrykandpatrick.vico.core.marker.MarkerVisibilityChangeListener?, legend: com.patrykandpatrick.vico.core.legend.Legend?, chartScrollSpec: com.patrykandpatrick.vico.compose.chart.scroll.ChartScrollSpec<Model of com.patrykandpatrick.vico.compose.chart.ChartsKt.Chart>?, isZoomEnabled: kotlin.Boolean, diffAnimationSpec: androidx.compose.animation.core.AnimationSpec<kotlin.Float>?, runInitialAnimation: kotlin.Boolean, fadingEdges: com.patrykandpatrick.vico.core.chart.edges.FadingEdges?, autoScaleUp: com.patrykandpatrick.vico.core.chart.scale.AutoScaleUp?, chartScrollState: com.patrykandpatrick.vico.compose.chart.scroll.ChartScrollState?, horizontalLayout: com.patrykandpatrick.vico.core.chart.layout.HorizontalLayout?, getXStep: kotlin.Function1<Model of com.patrykandpatrick.vico.compose.chart.ChartsKt.Chart, kotlin.Float>?, placeholder: @[ExtensionFunctionType] kotlin.Function3<androidx.compose.foundation.layout.BoxScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in com.patrykandpatrick.vico.compose.chart.ChartsKt' type=kotlin.Unit origin=null
+                                        <Model>: com.patrykandpatrick.vico.core.entry.ChartEntryModel
+                                        chart: GET_VAR 'val tmp0_chart: com.patrykandpatrick.vico.core.chart.column.ColumnChart [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.chart.column.ColumnChart origin=null
+                                        chartModelProducer: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$chartEntryModelProducer type:com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer visibility:public/*package*/ [final] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer origin=null
+                                          receiver: GET_VAR '<this>: com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+                                        modifier: GET_VAR 'val tmp3_modifier: androidx.compose.ui.Modifier [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.ui.Modifier origin=null
+                                        startAxis: GET_VAR 'val tmp1_startAxis: com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start> [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start> origin=null
+                                        topAxis: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        endAxis: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        bottomAxis: GET_VAR 'val tmp2_bottomAxis: com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                                        marker: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        markerVisibilityChangeListener: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        legend: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        chartScrollSpec: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        isZoomEnabled: COMPOSITE type=kotlin.Boolean origin=DEFAULT_VALUE
+                                          CONST Boolean type=kotlin.Boolean value=false
+                                        diffAnimationSpec: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        runInitialAnimation: COMPOSITE type=kotlin.Boolean origin=DEFAULT_VALUE
+                                          CONST Boolean type=kotlin.Boolean value=false
+                                        fadingEdges: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        autoScaleUp: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        chartScrollState: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        horizontalLayout: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        getXStep: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        placeholder: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                                          CONST Null type=kotlin.Nothing? value=null
+                                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                                        $changed: CONST Int type=kotlin.Int value=384
+                                        $changed1: CONST Int type=kotlin.Int value=0
+                                        $default: CONST Int type=kotlin.Int value=1048496
+                                    WHEN type=kotlin.Unit origin=IF
+                                      BRANCH
+                                        if: CALL 'public final fun isTraceInProgress (): kotlin.Boolean declared in androidx.compose.runtime.ComposerKt' type=kotlin.Boolean origin=null
+                                        then: CALL 'public final fun traceEventEnd (): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                                BRANCH
+                                  if: CONST Boolean type=kotlin.Boolean value=true
+                                  then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                                    $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                          FIELD FIELD_FOR_CAPTURED_VALUE name:$data type:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> visibility:public/*package*/ [final]
+                          FIELD FIELD_FOR_CAPTURED_VALUE name:$chartEntryModelProducer type:com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer visibility:public/*package*/ [final]
+                          FUN INLINE_LAMBDA name:invoke$lambda$0 visibility:private modality:FINAL <> ($receiver:com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, $$composer:androidx.compose.runtime.Composer?) returnType:kotlin.Unit
+                            $receiver: VALUE_PARAMETER name:$this$textComponent type:com.patrykandpatrick.vico.core.component.text.TextComponent.Builder
+                            VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$$composer index:0 type:androidx.compose.runtime.Composer?
+                            BLOCK_BODY
+                              VAR name:$i$a$-textComponent-ProfileScreenKt$WeeklyBarChart$2$1 type:kotlin.Int [val]
+                                CONST Int type=kotlin.Int value=0
+                              CALL 'public final fun <set-color> (value: kotlin.Int): kotlin.Unit declared in com.patrykandpatrick.vico.core.component.text.TextComponent.Builder' type=kotlin.Unit origin=EQ
+                                $this: GET_VAR '$this$textComponent: com.patrykandpatrick.vico.core.component.text.TextComponent.Builder declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$0' type=com.patrykandpatrick.vico.core.component.text.TextComponent.Builder origin=null
+                                value: CALL 'public open fun hashCode-impl (arg0: androidx.compose.ui.graphics.Color): kotlin.Int declared in androidx.compose.ui.graphics.Color' type=kotlin.Int origin=null
+                                  arg0: CALL 'public final fun getOnSurface-0d7_KjU (): androidx.compose.ui.graphics.Color declared in androidx.compose.material3.ColorScheme' type=androidx.compose.ui.graphics.Color origin=GET_PROPERTY
+                                    $this: CALL 'public final fun <get-colorScheme> ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): androidx.compose.material3.ColorScheme declared in androidx.compose.material3.MaterialTheme' type=androidx.compose.material3.ColorScheme origin=GET_PROPERTY
+                                      $this: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:androidx.compose.material3.MaterialTheme visibility:public [final,static] declared in androidx.compose.material3.MaterialTheme' type=androidx.compose.material3.MaterialTheme origin=null
+                                      $composer: GET_VAR '$$composer: androidx.compose.runtime.Composer? declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$0' type=androidx.compose.runtime.Composer? origin=null
+                                      $changed: GET_FIELD 'FIELD name:$stable type:kotlin.Int visibility:public [final,static] declared in androidx.compose.material3.MaterialTheme' type=kotlin.Int origin=null
+                              SET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:textSize type:kotlin.Int visibility:public [final,static] declared in android.R.attr' type=kotlin.Unit superQualifierSymbol=android.R.attr origin=EQ
+                                value: CONST Int type=kotlin.Int value=12
+                          FUN INLINE_LAMBDA name:invoke$lambda$1 visibility:private modality:FINAL <> ($receiver:com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, $$composer:androidx.compose.runtime.Composer?) returnType:kotlin.Unit
+                            $receiver: VALUE_PARAMETER name:$this$textComponent type:com.patrykandpatrick.vico.core.component.text.TextComponent.Builder
+                            VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$$composer index:0 type:androidx.compose.runtime.Composer?
+                            BLOCK_BODY
+                              VAR name:$i$a$-textComponent-ProfileScreenKt$WeeklyBarChart$2$2 type:kotlin.Int [val]
+                                CONST Int type=kotlin.Int value=0
+                              CALL 'public final fun <set-color> (value: kotlin.Int): kotlin.Unit declared in com.patrykandpatrick.vico.core.component.text.TextComponent.Builder' type=kotlin.Unit origin=EQ
+                                $this: GET_VAR '$this$textComponent: com.patrykandpatrick.vico.core.component.text.TextComponent.Builder declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$1' type=com.patrykandpatrick.vico.core.component.text.TextComponent.Builder origin=null
+                                value: CALL 'public open fun hashCode-impl (arg0: androidx.compose.ui.graphics.Color): kotlin.Int declared in androidx.compose.ui.graphics.Color' type=kotlin.Int origin=null
+                                  arg0: CALL 'public final fun getOnSurface-0d7_KjU (): androidx.compose.ui.graphics.Color declared in androidx.compose.material3.ColorScheme' type=androidx.compose.ui.graphics.Color origin=GET_PROPERTY
+                                    $this: CALL 'public final fun <get-colorScheme> ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): androidx.compose.material3.ColorScheme declared in androidx.compose.material3.MaterialTheme' type=androidx.compose.material3.ColorScheme origin=GET_PROPERTY
+                                      $this: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:androidx.compose.material3.MaterialTheme visibility:public [final,static] declared in androidx.compose.material3.MaterialTheme' type=androidx.compose.material3.MaterialTheme origin=null
+                                      $composer: GET_VAR '$$composer: androidx.compose.runtime.Composer? declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$1' type=androidx.compose.runtime.Composer? origin=null
+                                      $changed: GET_FIELD 'FIELD name:$stable type:kotlin.Int visibility:public [final,static] declared in androidx.compose.material3.MaterialTheme' type=kotlin.Int origin=null
+                              SET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:textSize type:kotlin.Int visibility:public [final,static] declared in android.R.attr' type=kotlin.Unit superQualifierSymbol=android.R.attr origin=EQ
+                                value: CONST Int type=kotlin.Int value=11
+                          FUN LOCAL_FUNCTION_FOR_LAMBDA name:invoke$lambda$3$lambda$2 visibility:private modality:FINAL <> ($data:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>, value:kotlin.Float, <unused var>:com.patrykandpatrick.vico.core.chart.values.ChartValues) returnType:kotlin.CharSequence
+                            VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$data index:0 type:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>
+                            VALUE_PARAMETER name:value index:1 type:kotlin.Float
+                            VALUE_PARAMETER UNDERSCORE_PARAMETER name:<unused var> index:2 type:com.patrykandpatrick.vico.core.chart.values.ChartValues
+                            BLOCK_BODY
+                              VAR name:index type:kotlin.Int [val]
+                                CALL 'public open fun toInt (): kotlin.Int declared in kotlin.Float' type=kotlin.Int origin=null
+                                  $this: GET_VAR 'value: kotlin.Float declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$3$lambda$2' type=kotlin.Float origin=null
+                              RETURN type=kotlin.Nothing from='private final fun invoke$lambda$3$lambda$2 ($data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>, value: kotlin.Float, <unused var>: com.patrykandpatrick.vico.core.chart.values.ChartValues): kotlin.CharSequence declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>'
+                                WHEN type=kotlin.CharSequence origin=IF
+                                  BRANCH
+                                    if: WHEN type=kotlin.Boolean origin=IN
+                                      BRANCH
+                                        if: CALL 'public final fun lessOrEqual (arg0: kotlin.Int, arg1: kotlin.Int): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                                          arg0: CONST Int type=kotlin.Int value=0
+                                          arg1: GET_VAR 'val index: kotlin.Int [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$3$lambda$2' type=kotlin.Int origin=null
+                                        then: CALL 'public final fun less (arg0: kotlin.Int, arg1: kotlin.Int): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                                          arg0: GET_VAR 'val index: kotlin.Int [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$3$lambda$2' type=kotlin.Int origin=null
+                                          arg1: CALL 'public abstract fun <get-size> (): kotlin.Int declared in kotlin.collections.Collection' type=kotlin.Int origin=null
+                                            $this: GET_VAR '$data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$3$lambda$2' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                                      BRANCH
+                                        if: CONST Boolean type=kotlin.Boolean value=true
+                                        then: CONST Boolean type=kotlin.Boolean value=false
+                                    then: BLOCK type=kotlin.String origin=null
+                                      CALL 'public final fun <get-label> (): kotlin.String declared in com.example.allenare_mobile.model.ActivitySummary' type=kotlin.String origin=GET_PROPERTY
+                                        $this: CALL 'public abstract fun get (index: kotlin.Int): E of kotlin.collections.List [operator] declared in kotlin.collections.List' type=com.example.allenare_mobile.model.ActivitySummary origin=GET_ARRAY_ELEMENT
+                                          $this: GET_VAR '$data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$3$lambda$2' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                                          index: GET_VAR 'val index: kotlin.Int [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$3$lambda$2' type=kotlin.Int origin=null
+                                  BRANCH
+                                    if: CONST Boolean type=kotlin.Boolean value=true
+                                    then: BLOCK type=kotlin.String origin=null
+                                      CONST String type=kotlin.String value=""
+                          FUN INLINE_LAMBDA name:invoke$lambda$3 visibility:private modality:FINAL <> ($data:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>) returnType:com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>
+                            VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$data index:0 type:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>
+                            BLOCK_BODY
+                              VAR name:$i$a$-cache-ProfileScreenKt$WeeklyBarChart$2$3 type:kotlin.Int [val]
+                                CONST Int type=kotlin.Int value=0
+                              RETURN type=kotlin.Nothing from='private final fun invoke$lambda$3 ($data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>): com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>'
+                                BLOCK type=com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=LAMBDA
+                                  COMPOSITE type=kotlin.Unit origin=null
+                                  CALL 'public final fun <jvm-indy> <T> (dynamicCall: T of kotlin.jvm.internal.<jvm-indy>, bootstrapMethodHandle: kotlin.Any, vararg bootstrapMethodArguments: kotlin.Any): T of kotlin.jvm.internal.<jvm-indy> declared in kotlin.jvm.internal' type=com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                                    <T>: com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>
+                                    dynamicCall: CALL 'public final fun formatValue (p0: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>): com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> declared in kotlin.jvm.internal.invokeDynamic' type=com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                                      p0: GET_VAR '$data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$3' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                                    bootstrapMethodHandle: CALL 'public final fun <jvm-method-handle> (tag: kotlin.Int, owner: kotlin.String, name: kotlin.String, descriptor: kotlin.String, isInterface: kotlin.Boolean): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                                      tag: CONST Int type=kotlin.Int value=6
+                                      owner: CONST String type=kotlin.String value="java/lang/invoke/LambdaMetafactory"
+                                      name: CONST String type=kotlin.String value="metafactory"
+                                      descriptor: CONST String type=kotlin.String value="(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;"
+                                      isInterface: CONST Boolean type=kotlin.Boolean value=false
+                                    bootstrapMethodArguments: VARARG type=kotlin.Array<kotlin.Any> varargElementType=kotlin.Any
+                                      CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                                        method: RAW_FUNCTION_REFERENCE 'public abstract fun formatValue (value: kotlin.Float, chartValues: com.patrykandpatrick.vico.core.chart.values.ChartValues): kotlin.CharSequence declared in com.patrykandpatrick.vico.core.formatter.ValueFormatter' type=kotlin.Any
+                                      RAW_FUNCTION_REFERENCE 'private final fun invoke$lambda$3$lambda$2 ($data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>, value: kotlin.Float, <unused var>: com.patrykandpatrick.vico.core.chart.values.ChartValues): kotlin.CharSequence declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=kotlin.Any
+                                      CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                                        method: RAW_FUNCTION_REFERENCE 'public abstract fun formatValue (value: kotlin.Float, chartValues: com.patrykandpatrick.vico.core.chart.values.ChartValues): kotlin.CharSequence [fake_override] declared in kotlin.jvm.internal.invokeDynamic.<fake>' type=kotlin.Any
+                          FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?) returnType:kotlin.Any?
+                            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>
+                            VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+                            VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+                            EXPRESSION_BODY
+                              RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?): kotlin.Any? declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>'
+                                CALL 'public final fun invoke ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                                  $this: GET_VAR '<this>: com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+                                  $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                                    GET_VAR 'p1: kotlin.Any? declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=kotlin.Any? origin=null
+                                  $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                                    GET_VAR 'p2: kotlin.Any? declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=kotlin.Any? origin=null
+                        CONSTRUCTOR_CALL 'public/*package*/ constructor <init> ($data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>, $chartEntryModelProducer: com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer) [primary] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+                          $data: GET_VAR 'data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                          $chartEntryModelProducer: GET_VAR 'val chartEntryModelProducer: com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer origin=null
+                      $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                      $changed: CONST Int type=kotlin.Int value=54
+                    $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+                    $changed: CONST Int type=kotlin.Int value=48
+                    $default: CONST Int type=kotlin.Int value=1
+            COMPOSITE type=kotlin.Unit origin=null
+          WHEN type=kotlin.Unit origin=IF
+            BRANCH
+              if: CALL 'public final fun isTraceInProgress (): kotlin.Boolean declared in androidx.compose.runtime.ComposerKt' type=kotlin.Boolean origin=null
+              then: CALL 'public final fun traceEventEnd (): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+      BRANCH
+        if: CONST Boolean type=kotlin.Boolean value=true
+        then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+    BLOCK type=kotlin.Unit origin=null
+      BLOCK type=kotlin.Unit origin=FOLDED_SAFE_CALL
+        WHEN type=kotlin.Unit origin=FOLDED_SAFE_CALL
+          BRANCH
+            if: COMPOSITE type=kotlin.Boolean origin=null
+              VAR IR_TEMPORARY_VARIABLE name:tmp3_safe_receiver type:androidx.compose.runtime.ScopeUpdateScope? [val]
+                CALL 'public abstract fun endRestartGroup (): androidx.compose.runtime.ScopeUpdateScope? declared in androidx.compose.runtime.Composer' type=androidx.compose.runtime.ScopeUpdateScope? origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.Composer? origin=null
+              CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                  arg0: GET_VAR 'val tmp3_safe_receiver: androidx.compose.runtime.ScopeUpdateScope? [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.ScopeUpdateScope? origin=null
+                  arg1: CONST Null type=kotlin.Nothing? value=null
+            then: CALL 'public abstract fun updateScope (block: kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>): kotlin.Unit declared in androidx.compose.runtime.ScopeUpdateScope' type=kotlin.Unit origin=null
+              $this: GET_VAR 'val tmp3_safe_receiver: androidx.compose.runtime.ScopeUpdateScope? [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=androidx.compose.runtime.ScopeUpdateScope? origin=null
+              block: BLOCK type=kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> origin=LAMBDA
+                COMPOSITE type=kotlin.Unit origin=null
+                CALL 'public final fun <jvm-indy> <T> (dynamicCall: T of kotlin.jvm.internal.<jvm-indy>, bootstrapMethodHandle: kotlin.Any, vararg bootstrapMethodArguments: kotlin.Any): T of kotlin.jvm.internal.<jvm-indy> declared in kotlin.jvm.internal' type=kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> origin=null
+                  <T>: kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit>
+                  dynamicCall: CALL 'public final fun invoke (p0: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>, p1: kotlin.Int): kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> declared in kotlin.jvm.internal.invokeDynamic' type=kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> origin=null
+                    p0: GET_VAR 'data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                    p1: GET_VAR '$changed: kotlin.Int declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart' type=kotlin.Int origin=null
+                  bootstrapMethodHandle: CALL 'public final fun <jvm-method-handle> (tag: kotlin.Int, owner: kotlin.String, name: kotlin.String, descriptor: kotlin.String, isInterface: kotlin.Boolean): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                    tag: CONST Int type=kotlin.Int value=6
+                    owner: CONST String type=kotlin.String value="java/lang/invoke/LambdaMetafactory"
+                    name: CONST String type=kotlin.String value="metafactory"
+                    descriptor: CONST String type=kotlin.String value="(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;"
+                    isInterface: CONST Boolean type=kotlin.Boolean value=false
+                  bootstrapMethodArguments: VARARG type=kotlin.Array<kotlin.Any> varargElementType=kotlin.Any
+                    CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                      method: RAW_FUNCTION_REFERENCE 'public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2' type=kotlin.Any
+                    RAW_FUNCTION_REFERENCE 'private final fun WeeklyBarChart$lambda$10 ($data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>, $$changed: kotlin.Int, $composer: androidx.compose.runtime.Composer?, $force: kotlin.Int): kotlin.Unit? declared in com.example.allenare_mobile.screens.ProfileScreenKt' type=kotlin.Any
+                    CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                      method: RAW_FUNCTION_REFERENCE 'public abstract fun invoke (p1: androidx.compose.runtime.Composer?, p2: kotlin.Int?): kotlin.Unit? [fake_override,operator] declared in kotlin.jvm.internal.invokeDynamic.<fake>' type=kotlin.Any
+          BRANCH
+            if: CONST Boolean type=kotlin.Boolean value=true
+            then: CONST Null type=kotlin.Any? value=null
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate$default(FunctionCodegen.kt:40)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethodNode(ClassCodegen.kt:406)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethod(ClassCodegen.kt:423)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generate(ClassCodegen.kt:168)
+	at org.jetbrains.kotlin.backend.jvm.FileCodegen.lower(JvmPhases.kt:39)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseFactoriesKt.createFilePhase$lambda$4(PhaseFactories.kt:71)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseBuildersKt$createSimpleNamedCompilerPhase$1.phaseBody(PhaseBuilders.kt:69)
+	at org.jetbrains.kotlin.backend.common.phaser.SimpleNamedCompilerPhase.phaseBody(CompilerPhase.kt:226)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invokeSequential(performByIrFile.kt:62)
+	... 44 more
+Caused by: java.lang.RuntimeException: Exception while generating code for:
+FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+  annotations:
+    Composable
+    ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+  overridden:
+    public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2
+  $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>
+  VALUE_PARAMETER name:$composer index:0 type:androidx.compose.runtime.Composer? [assignable]
+  VALUE_PARAMETER name:$changed index:1 type:kotlin.Int
+  BLOCK_BODY
+    CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+      composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+      sourceInformation: CONST String type=kotlin.String value="C183@6774L66,187@6932L257,199@7461L274,194@7220L533,182@6743L1133:ProfileScreen.kt#mxquxr"
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+            $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+              arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                $this: GET_VAR '$changed: kotlin.Int declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=kotlin.Int origin=null
+                other: CONST Int type=kotlin.Int value=3
+              arg1: CONST Int type=kotlin.Int value=2
+          arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+            $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+              $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+        then: BLOCK type=kotlin.Unit origin=null
+          WHEN type=kotlin.Unit origin=IF
+            BRANCH
+              if: CALL 'public final fun isTraceInProgress (): kotlin.Boolean declared in androidx.compose.runtime.ComposerKt' type=kotlin.Boolean origin=null
+              then: CALL 'public final fun traceEventStart (key: kotlin.Int, dirty1: kotlin.Int, dirty2: kotlin.Int, info: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                key: CONST Int type=kotlin.Int value=-2083074959
+                dirty1: GET_VAR '$changed: kotlin.Int declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=kotlin.Int origin=null
+                dirty2: CONST Int type=kotlin.Int value=-1
+                info: CONST String type=kotlin.String value="com.example.allenare_mobile.screens.WeeklyBarChart.<anonymous> (ProfileScreen.kt:182)"
+          BLOCK type=kotlin.Unit origin=ARGUMENTS_REORDERING_FOR_CALL
+            VAR IR_TEMPORARY_VARIABLE name:tmp0_chart type:com.patrykandpatrick.vico.core.chart.column.ColumnChart [val]
+              CALL 'public final fun columnChart-DmG2kCk (columns: kotlin.collections.List<com.patrykandpatrick.vico.core.component.shape.LineComponent>?, spacing: androidx.compose.ui.unit.Dp, innerSpacing: androidx.compose.ui.unit.Dp, mergeMode: com.patrykandpatrick.vico.core.chart.column.ColumnChart.MergeMode?, decorations: kotlin.collections.List<com.patrykandpatrick.vico.core.chart.decoration.Decoration>?, persistentMarkers: kotlin.collections.Map<kotlin.Float, com.patrykandpatrick.vico.core.marker.Marker>?, targetVerticalAxisPosition: com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical?, dataLabel: com.patrykandpatrick.vico.core.component.text.TextComponent?, dataLabelVerticalPosition: com.patrykandpatrick.vico.core.component.text.VerticalPosition?, dataLabelValueFormatter: com.patrykandpatrick.vico.core.formatter.ValueFormatter?, dataLabelRotationDegrees: kotlin.Float, axisValuesOverrider: com.patrykandpatrick.vico.core.chart.values.AxisValuesOverrider<com.patrykandpatrick.vico.core.entry.ChartEntryModel>?, drawingModelInterpolator: com.patrykandpatrick.vico.core.entry.diff.DrawingModelInterpolator<com.patrykandpatrick.vico.core.chart.column.ColumnChartDrawingModel.ColumnInfo, com.patrykandpatrick.vico.core.chart.column.ColumnChartDrawingModel>?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): com.patrykandpatrick.vico.core.chart.column.ColumnChart declared in com.patrykandpatrick.vico.compose.chart.column.ColumnChartKt' type=com.patrykandpatrick.vico.core.chart.column.ColumnChart origin=null
+                columns: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                spacing: CALL 'public final fun <get-dp> (): androidx.compose.ui.unit.Dp [inline] declared in androidx.compose.ui.unit.DpKt' type=androidx.compose.ui.unit.Dp origin=GET_PROPERTY
+                  $receiver: CONST Int type=kotlin.Int value=16
+                innerSpacing: COMPOSITE type=androidx.compose.ui.unit.Dp origin=DEFAULT_VALUE
+                  CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.Dp origin=null
+                    <T>: kotlin.Float
+                    <R>: androidx.compose.ui.unit.Dp
+                    v: CONST Float type=kotlin.Float value=0.0
+                mergeMode: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                decorations: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                persistentMarkers: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                targetVerticalAxisPosition: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                dataLabel: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                dataLabelVerticalPosition: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                dataLabelValueFormatter: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                dataLabelRotationDegrees: COMPOSITE type=kotlin.Float origin=DEFAULT_VALUE
+                  CONST Float type=kotlin.Float value=0.0
+                axisValuesOverrider: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                drawingModelInterpolator: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                $changed: CONST Int type=kotlin.Int value=48
+                $changed1: CONST Int type=kotlin.Int value=0
+                $default: CONST Int type=kotlin.Int value=8189
+            VAR IR_TEMPORARY_VARIABLE name:tmp1_startAxis type:com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start> [val]
+              CALL 'public final fun rememberStartAxis-qmNWa6M (label: com.patrykandpatrick.vico.core.component.text.TextComponent?, axis: com.patrykandpatrick.vico.core.component.shape.LineComponent?, tick: com.patrykandpatrick.vico.core.component.shape.LineComponent?, tickLength: androidx.compose.ui.unit.Dp, guideline: com.patrykandpatrick.vico.core.component.shape.LineComponent?, valueFormatter: com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start>?, sizeConstraint: com.patrykandpatrick.vico.core.axis.Axis.SizeConstraint?, horizontalLabelPosition: com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis.HorizontalLabelPosition?, verticalLabelPosition: com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis.VerticalLabelPosition?, itemPlacer: com.patrykandpatrick.vico.core.axis.AxisItemPlacer.Vertical?, labelRotationDegrees: kotlin.Float, titleComponent: com.patrykandpatrick.vico.core.component.text.TextComponent?, title: kotlin.CharSequence?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start> declared in com.patrykandpatrick.vico.compose.axis.vertical.VerticalAxisKt' type=com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start> origin=null
+                label: BLOCK type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                  COMPOSITE type=kotlin.Unit origin=null
+                    BLOCK type=kotlin.Unit origin=null
+                      CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                        $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        key: CONST Int type=kotlin.Int value=-399543116
+                      CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                        composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        sourceInformation: CONST String type=kotlin.String value="*189@7041L11"
+                  VAR IR_TEMPORARY_VARIABLE name:tmp0_group type:com.patrykandpatrick.vico.core.component.text.TextComponent [val]
+                    CALL 'public final fun textComponent (block: @[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit>): com.patrykandpatrick.vico.core.component.text.TextComponent [inline] declared in com.patrykandpatrick.vico.core.component.text.TextComponentKt' type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                      block: BLOCK type=@[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit> origin=LAMBDA
+                        COMPOSITE type=kotlin.Unit origin=null
+                        FUNCTION_REFERENCE 'private final fun invoke$lambda$0 ($$composer: androidx.compose.runtime.Composer?): kotlin.Unit declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=@[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit> origin=INLINE_LAMBDA reflectionTarget=null
+                          $$composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  COMPOSITE type=kotlin.Unit origin=null
+                    CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  GET_VAR 'val tmp0_group: com.patrykandpatrick.vico.core.component.text.TextComponent [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                axis: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                tick: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                tickLength: COMPOSITE type=androidx.compose.ui.unit.Dp origin=DEFAULT_VALUE
+                  CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.Dp origin=null
+                    <T>: kotlin.Float
+                    <R>: androidx.compose.ui.unit.Dp
+                    v: CONST Float type=kotlin.Float value=0.0
+                guideline: CONST Null type=kotlin.Nothing? value=null
+                valueFormatter: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                sizeConstraint: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                horizontalLabelPosition: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                verticalLabelPosition: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                itemPlacer: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                labelRotationDegrees: COMPOSITE type=kotlin.Float origin=DEFAULT_VALUE
+                  CONST Float type=kotlin.Float value=0.0
+                titleComponent: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                title: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                $changed: CONST Int type=kotlin.Int value=24576
+                $changed1: CONST Int type=kotlin.Int value=0
+                $default: CONST Int type=kotlin.Int value=8174
+            VAR IR_TEMPORARY_VARIABLE name:tmp2_bottomAxis type:com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> [val]
+              CALL 'public final fun rememberBottomAxis-WSk2ftU (label: com.patrykandpatrick.vico.core.component.text.TextComponent?, axis: com.patrykandpatrick.vico.core.component.shape.LineComponent?, tick: com.patrykandpatrick.vico.core.component.shape.LineComponent?, tickLength: androidx.compose.ui.unit.Dp, guideline: com.patrykandpatrick.vico.core.component.shape.LineComponent?, valueFormatter: com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>?, sizeConstraint: com.patrykandpatrick.vico.core.axis.Axis.SizeConstraint?, titleComponent: com.patrykandpatrick.vico.core.component.text.TextComponent?, title: kotlin.CharSequence?, labelRotationDegrees: kotlin.Float, itemPlacer: com.patrykandpatrick.vico.core.axis.AxisItemPlacer.Horizontal?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> declared in com.patrykandpatrick.vico.compose.axis.horizontal.HorizontalAxisKt' type=com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                label: BLOCK type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                  COMPOSITE type=kotlin.Unit origin=null
+                    BLOCK type=kotlin.Unit origin=null
+                      CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                        $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        key: CONST Int type=kotlin.Int value=-399533868
+                      CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                        composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        sourceInformation: CONST String type=kotlin.String value="*196@7330L11"
+                  VAR IR_TEMPORARY_VARIABLE name:tmp1_group type:com.patrykandpatrick.vico.core.component.text.TextComponent [val]
+                    CALL 'public final fun textComponent (block: @[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit>): com.patrykandpatrick.vico.core.component.text.TextComponent [inline] declared in com.patrykandpatrick.vico.core.component.text.TextComponentKt' type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                      block: BLOCK type=@[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit> origin=LAMBDA
+                        COMPOSITE type=kotlin.Unit origin=null
+                        FUNCTION_REFERENCE 'private final fun invoke$lambda$1 ($$composer: androidx.compose.runtime.Composer?): kotlin.Unit declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=@[ExtensionFunctionType] kotlin.Function1<com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, kotlin.Unit> origin=INLINE_LAMBDA reflectionTarget=null
+                          $$composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  COMPOSITE type=kotlin.Unit origin=null
+                    CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  GET_VAR 'val tmp1_group: com.patrykandpatrick.vico.core.component.text.TextComponent [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.component.text.TextComponent origin=null
+                axis: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                tick: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                tickLength: COMPOSITE type=androidx.compose.ui.unit.Dp origin=DEFAULT_VALUE
+                  CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.Dp origin=null
+                    <T>: kotlin.Float
+                    <R>: androidx.compose.ui.unit.Dp
+                    v: CONST Float type=kotlin.Float value=0.0
+                guideline: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                valueFormatter: BLOCK type=com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                  BLOCK type=kotlin.Unit origin=null
+                    CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                      key: CONST Int type=kotlin.Int value=-399527572
+                    CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                      composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                      sourceInformation: CONST String type=kotlin.String value="CC(remember):ProfileScreen.kt#9igjgp"
+                  VAR IR_TEMPORARY_VARIABLE name:tmp2_group type:com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> [val]
+                    CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                      <T>: com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>
+                      $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                      invalid: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                        $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        value: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$data type:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> visibility:public/*package*/ [final] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                          receiver: GET_VAR '<this>: com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+                      block: BLOCK type=kotlin.Function0<com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>> origin=LAMBDA
+                        COMPOSITE type=kotlin.Unit origin=null
+                        FUNCTION_REFERENCE 'private final fun invoke$lambda$3 ($data: kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary>): com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=kotlin.Function0<com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>> origin=INLINE_LAMBDA reflectionTarget=null
+                          $data: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$data type:kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> visibility:public/*package*/ [final] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=kotlin.collections.List<com.example.allenare_mobile.model.ActivitySummary> origin=null
+                            receiver: GET_VAR '<this>: com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+                  CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                    $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  GET_VAR 'val tmp2_group: com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+                sizeConstraint: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                titleComponent: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                title: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                labelRotationDegrees: COMPOSITE type=kotlin.Float origin=DEFAULT_VALUE
+                  CONST Float type=kotlin.Float value=0.0
+                itemPlacer: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                  CONST Null type=kotlin.Nothing? value=null
+                $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                $changed: CONST Int type=kotlin.Int value=0
+                $changed1: CONST Int type=kotlin.Int value=0
+                $default: CONST Int type=kotlin.Int value=2014
+            VAR IR_TEMPORARY_VARIABLE name:tmp3_modifier type:androidx.compose.ui.Modifier [val]
+              CALL 'public final fun height-3ABfNKs (height: androidx.compose.ui.unit.Dp): androidx.compose.ui.Modifier declared in androidx.compose.foundation.layout.SizeKt' type=androidx.compose.ui.Modifier origin=null
+                $receiver: CALL 'public final fun fillMaxWidth$default (fraction: kotlin.Float, $mask0: kotlin.Int, $handler: kotlin.Any?): androidx.compose.ui.Modifier declared in androidx.compose.foundation.layout.SizeKt' type=androidx.compose.ui.Modifier origin=DEFAULT_DISPATCH_CALL
+                  $receiver: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:Companion type:androidx.compose.ui.Modifier.Companion visibility:public [final,static] declared in androidx.compose.ui.Modifier' type=androidx.compose.ui.Modifier.Companion origin=null
+                  fraction: COMPOSITE type=kotlin.Float origin=DEFAULT_VALUE
+                    CONST Float type=kotlin.Float value=0.0
+                  $mask0: CONST Int type=kotlin.Int value=1
+                  $handler: CONST Null type=kotlin.Any? value=null
+                height: CALL 'public final fun <get-dp> (): androidx.compose.ui.unit.Dp [inline] declared in androidx.compose.ui.unit.DpKt' type=androidx.compose.ui.unit.Dp origin=GET_PROPERTY
+                  $receiver: CONST Int type=kotlin.Int value=250
+            CALL 'public final fun Chart <Model> (chart: com.patrykandpatrick.vico.core.chart.Chart<Model of com.patrykandpatrick.vico.compose.chart.ChartsKt.Chart>, chartModelProducer: com.patrykandpatrick.vico.core.entry.ChartModelProducer<Model of com.patrykandpatrick.vico.compose.chart.ChartsKt.Chart>, modifier: androidx.compose.ui.Modifier?, startAxis: com.patrykandpatrick.vico.core.axis.AxisRenderer<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start>?, topAxis: com.patrykandpatrick.vico.core.axis.AxisRenderer<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Top>?, endAxis: com.patrykandpatrick.vico.core.axis.AxisRenderer<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.End>?, bottomAxis: com.patrykandpatrick.vico.core.axis.AxisRenderer<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom>?, marker: com.patrykandpatrick.vico.core.marker.Marker?, markerVisibilityChangeListener: com.patrykandpatrick.vico.core.marker.MarkerVisibilityChangeListener?, legend: com.patrykandpatrick.vico.core.legend.Legend?, chartScrollSpec: com.patrykandpatrick.vico.compose.chart.scroll.ChartScrollSpec<Model of com.patrykandpatrick.vico.compose.chart.ChartsKt.Chart>?, isZoomEnabled: kotlin.Boolean, diffAnimationSpec: androidx.compose.animation.core.AnimationSpec<kotlin.Float>?, runInitialAnimation: kotlin.Boolean, fadingEdges: com.patrykandpatrick.vico.core.chart.edges.FadingEdges?, autoScaleUp: com.patrykandpatrick.vico.core.chart.scale.AutoScaleUp?, chartScrollState: com.patrykandpatrick.vico.compose.chart.scroll.ChartScrollState?, horizontalLayout: com.patrykandpatrick.vico.core.chart.layout.HorizontalLayout?, getXStep: kotlin.Function1<Model of com.patrykandpatrick.vico.compose.chart.ChartsKt.Chart, kotlin.Float>?, placeholder: @[ExtensionFunctionType] kotlin.Function3<androidx.compose.foundation.layout.BoxScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in com.patrykandpatrick.vico.compose.chart.ChartsKt' type=kotlin.Unit origin=null
+              <Model>: com.patrykandpatrick.vico.core.entry.ChartEntryModel
+              chart: GET_VAR 'val tmp0_chart: com.patrykandpatrick.vico.core.chart.column.ColumnChart [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.chart.column.ColumnChart origin=null
+              chartModelProducer: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$chartEntryModelProducer type:com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer visibility:public/*package*/ [final] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>' type=com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer origin=null
+                receiver: GET_VAR '<this>: com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided> origin=null
+              modifier: GET_VAR 'val tmp3_modifier: androidx.compose.ui.Modifier [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.ui.Modifier origin=null
+              startAxis: GET_VAR 'val tmp1_startAxis: com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start> [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Vertical.Start> origin=null
+              topAxis: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              endAxis: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              bottomAxis: GET_VAR 'val tmp2_bottomAxis: com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> [val] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis<com.patrykandpatrick.vico.core.axis.AxisPosition.Horizontal.Bottom> origin=null
+              marker: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              markerVisibilityChangeListener: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              legend: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              chartScrollSpec: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              isZoomEnabled: COMPOSITE type=kotlin.Boolean origin=DEFAULT_VALUE
+                CONST Boolean type=kotlin.Boolean value=false
+              diffAnimationSpec: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              runInitialAnimation: COMPOSITE type=kotlin.Boolean origin=DEFAULT_VALUE
+                CONST Boolean type=kotlin.Boolean value=false
+              fadingEdges: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              autoScaleUp: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              chartScrollState: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              horizontalLayout: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              getXStep: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              placeholder: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+              $changed: CONST Int type=kotlin.Int value=384
+              $changed1: CONST Int type=kotlin.Int value=0
+              $default: CONST Int type=kotlin.Int value=1048496
+          WHEN type=kotlin.Unit origin=IF
+            BRANCH
+              if: CALL 'public final fun isTraceInProgress (): kotlin.Boolean declared in androidx.compose.runtime.ComposerKt' type=kotlin.Boolean origin=null
+              then: CALL 'public final fun traceEventEnd (): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+      BRANCH
+        if: CONST Boolean type=kotlin.Boolean value=true
+        then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate$default(FunctionCodegen.kt:40)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethodNode(ClassCodegen.kt:406)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethod(ClassCodegen.kt:423)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generate(ClassCodegen.kt:168)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitClass(ExpressionCodegen.kt:1000)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitClass(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.declarations.IrClass.accept(IrClass.kt:72)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.gen(ExpressionCodegen.kt:217)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrCallGenerator.genValueAndPut(IrCallGenerator.kt:48)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall$handleParameter(ExpressionCodegen.kt:616)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:644)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrCall.accept(IrCall.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.gen(ExpressionCodegen.kt:217)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrCallGenerator.genValueAndPut(IrCallGenerator.kt:48)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall$handleParameter(ExpressionCodegen.kt:616)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:644)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrCall.accept(IrCall.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:1101)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrWhen.accept(IrWhen.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:1101)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrWhen.accept(IrWhen.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:584)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlockBody.accept(IrBlockBody.kt:20)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.generate(ExpressionCodegen.kt:240)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.doGenerate(FunctionCodegen.kt:123)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:44)
+	... 54 more
+Caused by: java.lang.RuntimeException: Exception while generating code for:
+FUN INLINE_LAMBDA name:invoke$lambda$0 visibility:private modality:FINAL <> ($receiver:com.patrykandpatrick.vico.core.component.text.TextComponent.Builder, $$composer:androidx.compose.runtime.Composer?) returnType:kotlin.Unit
+  $receiver: VALUE_PARAMETER name:$this$textComponent type:com.patrykandpatrick.vico.core.component.text.TextComponent.Builder
+  VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$$composer index:0 type:androidx.compose.runtime.Composer?
+  BLOCK_BODY
+    VAR name:$i$a$-textComponent-ProfileScreenKt$WeeklyBarChart$2$1 type:kotlin.Int [val]
+      CONST Int type=kotlin.Int value=0
+    CALL 'public final fun <set-color> (value: kotlin.Int): kotlin.Unit declared in com.patrykandpatrick.vico.core.component.text.TextComponent.Builder' type=kotlin.Unit origin=EQ
+      $this: GET_VAR '$this$textComponent: com.patrykandpatrick.vico.core.component.text.TextComponent.Builder declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$0' type=com.patrykandpatrick.vico.core.component.text.TextComponent.Builder origin=null
+      value: CALL 'public open fun hashCode-impl (arg0: androidx.compose.ui.graphics.Color): kotlin.Int declared in androidx.compose.ui.graphics.Color' type=kotlin.Int origin=null
+        arg0: CALL 'public final fun getOnSurface-0d7_KjU (): androidx.compose.ui.graphics.Color declared in androidx.compose.material3.ColorScheme' type=androidx.compose.ui.graphics.Color origin=GET_PROPERTY
+          $this: CALL 'public final fun <get-colorScheme> ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): androidx.compose.material3.ColorScheme declared in androidx.compose.material3.MaterialTheme' type=androidx.compose.material3.ColorScheme origin=GET_PROPERTY
+            $this: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:androidx.compose.material3.MaterialTheme visibility:public [final,static] declared in androidx.compose.material3.MaterialTheme' type=androidx.compose.material3.MaterialTheme origin=null
+            $composer: GET_VAR '$$composer: androidx.compose.runtime.Composer? declared in com.example.allenare_mobile.screens.ProfileScreenKt.WeeklyBarChart.<no name provided>.invoke$lambda$0' type=androidx.compose.runtime.Composer? origin=null
+            $changed: GET_FIELD 'FIELD name:$stable type:kotlin.Int visibility:public [final,static] declared in androidx.compose.material3.MaterialTheme' type=kotlin.Int origin=null
+    SET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:textSize type:kotlin.Int visibility:public [final,static] declared in android.R.attr' type=kotlin.Unit superQualifierSymbol=android.R.attr origin=EQ
+      value: CONST Int type=kotlin.Int value=12
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrSourceCompilerForInline.generateLambdaBody(IrSourceCompilerForInline.kt:67)
+	at org.jetbrains.kotlin.codegen.inline.ExpressionLambda.generateLambdaBody(LambdaInfo.kt:72)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrInlineCodegen.genValueAndPut(IrInlineCodegen.kt:100)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall$handleParameter(ExpressionCodegen.kt:616)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:644)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrCall.accept(IrCall.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitVariable(ExpressionCodegen.kt:790)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitVariable(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.declarations.IrVariable.accept(IrVariable.kt:36)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.gen(ExpressionCodegen.kt:217)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrCallGenerator.genValueAndPut(IrCallGenerator.kt:48)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall$handleParameter(ExpressionCodegen.kt:616)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:644)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrCall.accept(IrCall.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitVariable(ExpressionCodegen.kt:790)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitVariable(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.declarations.IrVariable.accept(IrVariable.kt:36)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:1101)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrWhen.accept(IrWhen.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:584)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlockBody.accept(IrBlockBody.kt:20)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.generate(ExpressionCodegen.kt:240)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.doGenerate(FunctionCodegen.kt:123)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:44)
+	... 114 more
+Caused by: java.lang.AssertionError: access of const val: SET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:textSize type:kotlin.Int visibility:public [final,static] declared in android.R.attr' type=kotlin.Unit superQualifierSymbol=android.R.attr origin=EQ
+  value: CONST Int type=kotlin.Int value=12
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitFieldAccess(ExpressionCodegen.kt:861)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitFieldAccess(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitSetField(IrElementVisitor.kt:206)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitSetField(ExpressionCodegen.kt:908)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitSetField(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrSetField.accept(IrSetField.kt:21)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:584)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlockBody.accept(IrBlockBody.kt:20)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.generate(ExpressionCodegen.kt:240)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.doGenerate(FunctionCodegen.kt:123)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:44)
+	... 164 more
+
+
