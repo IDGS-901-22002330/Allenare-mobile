@@ -54,7 +54,7 @@ fun AllRunsScreen(navController: NavController, onWorkoutLogged: () -> Unit) {
 
     var selectedTabIndex by remember { mutableStateOf(0) }
 
-    // Cargar las rutas (NO SE MODIFICA)
+    // Cargar las rutas
     LaunchedEffect(Unit) {
         if (locationPermission.status.isGranted) {
             try {
@@ -90,8 +90,8 @@ fun AllRunsScreen(navController: NavController, onWorkoutLogged: () -> Unit) {
                 title = { Text("Mis Carreras") },
                 actions = {
 
-                    // Botón Metas (NO afecta lógica)
-                    IconButton(onClick = { navController.navigate("records/${userId}") }) {
+                    // Botón Metas
+                    IconButton(onClick = { navController.navigate("records/$userId") }) {
                         Icon(Icons.Default.EmojiEvents, "Metas", tint = Color(0xFFFFC107))
                     }
 
@@ -211,7 +211,6 @@ fun AllRunsScreen(navController: NavController, onWorkoutLogged: () -> Unit) {
 
                                     Spacer(Modifier.height(12.dp))
 
-                                    // -------- NO SE TOCA LÓGICA --------
                                     LaunchedEffect(Unit) {
                                         val location = fusedLocationClient.lastLocation.await()
                                         location?.let {

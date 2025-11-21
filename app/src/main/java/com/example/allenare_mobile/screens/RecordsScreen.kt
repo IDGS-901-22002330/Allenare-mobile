@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Alignment
+import androidx.navigation.NavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.allenare_mobile.model.ExercisePerformed
 import com.example.allenare_mobile.model.GoalStats
@@ -16,11 +17,12 @@ import java.util.Locale
 
 
 @Composable
-fun Records(userId: String) {
+fun Records(navController: NavController, userId: String) {
 
     val firestore = FirebaseFirestore.getInstance()
     var stats by remember { mutableStateOf(GoalStats()) }
     var loading by remember { mutableStateOf(true) }
+    var hasData by remember { mutableStateOf(false) }
 
 
     LaunchedEffect(userId) {
@@ -30,7 +32,11 @@ fun Records(userId: String) {
                 .get()
                 .await()
 
-            val records = snapshot.documents.mapNotNull { it.toObject(ExercisePerformed::class.java) }
+            val records = snapshot.documents.mapNotNull {
+                it.toObject(ExercisePerformed::class.java)
+            }
+
+            hasData = records.isNotEmpty() // si hay carreras
 
             if (records.isNotEmpty()) {
 
@@ -63,7 +69,6 @@ fun Records(userId: String) {
         }
     }
 
-    // LOADING
     if (loading) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -74,12 +79,20 @@ fun Records(userId: String) {
         return
     }
 
-    // --- UI ---
+    // ---- UI ----
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
+
+        // Regresar
+        Button(
+            onClick = { navController.popBackStack() },
+            modifier = Modifier.padding(bottom = 12.dp)
+        ) {
+            Text("Regresar")
+        }
 
         Text(
             "Tus Metas",
@@ -89,7 +102,23 @@ fun Records(userId: String) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // DISTANCIA MÁS LARGA
+        if (!hasData) {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    "Aún no has completado ninguna ruta.\n" +
+                            "Corre tu primera carrera para ver tus mejores marcas.",
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+            return
+        }
+
+        // Verificacion de datos
+
+        // Distancia mas larga
         Card(
             modifier = Modifier.fillMaxWidth(),
             elevation = CardDefaults.cardElevation(8.dp)
@@ -110,7 +139,7 @@ fun Records(userId: String) {
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
 
-                    Text("⏱️ Mejores tiempos por ruta", fontWeight = FontWeight.Bold)
+                    Text("Mejores tiempos por ruta", fontWeight = FontWeight.Bold)
 
                     stats.bestTimesByRoute.forEach { (route, time) ->
                         val min = time / 60
@@ -124,9 +153,9 @@ fun Records(userId: String) {
         }
 
 
-        // RUTAS RECIENTES
+        // Rutas recientes
         if (stats.recentRuns.isNotEmpty()) {
-            Text("🕒 Rutas recientes", fontWeight = FontWeight.Bold)
+            Text("Rutas recientes", fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(8.dp))
 
             stats.recentRuns.forEach { run ->

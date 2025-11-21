@@ -45,10 +45,11 @@ sealed class BottomNavItem(val route: String, val icon: ImageVector, val title: 
     object LogGym : BottomNavItem("log_gym_workout", Icons.Default.FitnessCenter, "Gimnasio")
     object LogRun : BottomNavItem("log_running_workout", Icons.Default.DirectionsRun, "Carrera")
     object AllRuns : BottomNavItem("all_runs", Icons.Default.DirectionsRun, "All Runs")
-
     object Library : BottomNavItem("library", Icons.Default.LibraryBooks, "Library")
     object LeaderBoards: BottomNavItem("leaderBoards", Icons.Default.BarChart, "LeaderBoards")
     object Profile : BottomNavItem("profile", Icons.Default.AccountCircle, "Perfil")
+    object Records : BottomNavItem("records", Icons.Default.List, "Records")
+
 }
 
 @Composable

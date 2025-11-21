@@ -123,7 +123,7 @@ fun ActiveRunScreen(navController: NavController, runId: String) {
             delay(1000) // Cada segundo
         }
 
-        message = "⚠️ Ruta incompleta, buena suerte la próxima."
+        message = "Ruta incompleta, buena suerte la próxima."
         delay(3000)
         navController.navigate("all_runs")
     }

@@ -6,9 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.allenare_mobile.screens.ActiveRunScreen
 import com.example.allenare_mobile.screens.ChatScreen
 import com.example.allenare_mobile.screens.DashboardScreen
@@ -46,10 +48,14 @@ fun MainNavigationGraph(
         composable("active_run/{runId}") { backStackEntry -> val runId = backStackEntry.arguments?.getString("runId") ?: ""
             ActiveRunScreen(navController = navController, runId = runId)
         }
-        composable("records/{userId}") { backStackEntry ->
-            val userId = backStackEntry.arguments?.getString("userId") ?: ""
-            Records(userId = userId)
-        }
+        composable(
+            route = "records/{userId}",
+            arguments = listOf(navArgument("userId") { type = NavType.StringType })
+        ) { backStackEntry -> val userId = backStackEntry.arguments?.getString("userId") ?: ""
+            Records(
+                navController = navController,
+                userId = userId
+            ) }
         composable(BottomNavItem.Profile.route) { ProfileScreen(onLogout = onLogout) }
         composable(BottomNavItem.LeaderBoards.route) { LeaderBoardsScreen() }
         composable(BottomNavItem.Library.route) { ContentNavigationGraph() }
