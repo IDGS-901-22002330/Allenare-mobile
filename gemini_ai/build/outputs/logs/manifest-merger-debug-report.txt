@@ -1,18 +1,18 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml:2:1-7:12
-INJECTED from C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml:2:1-7:12
+ADDED from C:\Users\andre.cabrera\AndroidStudioProjects\Allenaremobile\gemini_ai\src\main\AndroidManifest.xml:2:1-7:12
+INJECTED from C:\Users\andre.cabrera\AndroidStudioProjects\Allenaremobile\gemini_ai\src\main\AndroidManifest.xml:2:1-7:12
 	package
-		INJECTED from C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\andre.cabrera\AndroidStudioProjects\Allenaremobile\gemini_ai\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml:2:11-69
+		ADDED from C:\Users\andre.cabrera\AndroidStudioProjects\Allenaremobile\gemini_ai\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml:4:5-5:19
+ADDED from C:\Users\andre.cabrera\AndroidStudioProjects\Allenaremobile\gemini_ai\src\main\AndroidManifest.xml:4:5-5:19
 uses-sdk
-INJECTED from C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml
-INJECTED from C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml
+INJECTED from C:\Users\andre.cabrera\AndroidStudioProjects\Allenaremobile\gemini_ai\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\andre.cabrera\AndroidStudioProjects\Allenaremobile\gemini_ai\src\main\AndroidManifest.xml
+INJECTED from C:\Users\andre.cabrera\AndroidStudioProjects\Allenaremobile\gemini_ai\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\andre.cabrera\AndroidStudioProjects\Allenaremobile\gemini_ai\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\andre.cabrera\AndroidStudioProjects\Allenaremobile\gemini_ai\src\main\AndroidManifest.xml

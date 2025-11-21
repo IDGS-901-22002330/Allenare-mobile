@@ -8,8 +8,9 @@ plugins {
 
 android {
     signingConfigs {
+        // CORRECCIÓN: Modificamos la configuración 'debug' que ya existe
         getByName("debug") {
-            storeFile = file("C:\\Users\\Alejandro\\.android\\debug.keystore")
+            storeFile = file(System.getProperty("user.home") + "/.android/debug.keystore")
             storePassword = "android"
             keyAlias = "androiddebugkey"
             keyPassword = "android"
@@ -36,6 +37,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            // Asigna la configuración de firma al build de depuración
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {

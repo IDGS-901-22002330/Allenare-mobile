@@ -2,6 +2,7 @@ package com.example.allenare_mobile.screens
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.os.Looper
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -11,10 +12,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.allenare_mobile.model.ExercisePerformed
+import com.example.allenare_mobile.model.RunData
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -23,7 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.maps.android.SphericalUtil
 import com.google.maps.android.compose.*
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -34,17 +34,16 @@ fun ActiveRunScreen(navController: NavController, runId: String) {
     val context = LocalContext.current
     val firestore = FirebaseFirestore.getInstance()
     val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-    val coroutineScope = rememberCoroutineScope()
     val currentUser = FirebaseAuth.getInstance().currentUser
 
     var runData by remember { mutableStateOf<RunData?>(null) }
     var message by remember { mutableStateOf("Iniciando ruta...") }
 
-    var distanceCovered by remember { mutableStateOf(0.0) } // Distancia recorrida (m)
-    var elapsedTime by remember { mutableStateOf(0L) } // Tiempo (s)
+    var distanceCovered by remember { mutableStateOf(0.0) }
+    var elapsedTime by remember { mutableStateOf(0L) }
     var isPaused by remember { mutableStateOf(false) }
+    var userLocation by remember { mutableStateOf<LatLng?>(null) }
 
-    // Datos de la ruta elegida
     LaunchedEffect(runId) {
         val doc = firestore.collection("running_workouts").document(runId).get().await()
         val name = doc.getString("name") ?: "Sin nombre"
@@ -67,74 +66,83 @@ fun ActiveRunScreen(navController: NavController, runId: String) {
     }
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(runData!!.routePoints.first(), 15f)
+        position = CameraPosition.fromLatLngZoom(runData!!.routePoints.first(), 17f)
     }
 
-    // Contadores
-    LaunchedEffect(runData, isPaused) {
+    DisposableEffect(runData, isPaused) {
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000).build()
         var lastLocation: LatLng? = null
-        val totalTime = runData!!.duration + 600 // +10 minutos extra
-        val endTime = System.currentTimeMillis() + (totalTime * 1000)
 
-        while (System.currentTimeMillis() < endTime) {
-            if (!isPaused) {
-                val location = fusedLocationClient.lastLocation.await()
-                location?.let {
-                    val userLatLng = LatLng(it.latitude, it.longitude)
-                    if (lastLocation != null) {
-                        val segment = SphericalUtil.computeDistanceBetween(lastLocation, userLatLng)
-                        distanceCovered += segment
-                    }
-                    lastLocation = userLatLng
+        val locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                if (!isPaused) {
+                    locationResult.lastLocation?.let { location ->
+                        val currentLatLng = LatLng(location.latitude, location.longitude)
+                        userLocation = currentLatLng
 
-                    // Verificar si llegó al final
-                    val distanceToEnd = SphericalUtil.computeDistanceBetween(
-                        userLatLng,
-                        runData!!.routePoints.last()
-                    )
-                    if (distanceToEnd <= 50) {
-                        message = "¡Felicidades, ruta completada con éxito!"
-
-                        // Guardar registro
-                        if (currentUser != null) {
-                            val record = ExercisePerformed(
-                                userId = currentUser.uid,
-                                name = runData!!.name,
-                                cantidad = runData!!.distance,
-                                tiempoSegundos = elapsedTime
-                            )
-                            firestore.collection("completed_workouts").add(record)
+                        if (lastLocation != null) {
+                            distanceCovered += SphericalUtil.computeDistanceBetween(lastLocation, currentLatLng)
                         }
-
-                        // Actualizar estado de la ruta
-                        firestore.collection("running_workouts")
-                            .document(runId)
-                            .update("estatus", 1)
-
-                        delay(3000)
-                        navController.navigate("all_runs")
-                        return@LaunchedEffect
+                        lastLocation = currentLatLng
                     }
                 }
-
-                elapsedTime += 1
             }
-
-            delay(1000) // Cada segundo
         }
 
-        message = "⚠️ Ruta incompleta, buena suerte la próxima."
-        delay(3000)
-        navController.navigate("all_runs")
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+
+        onDispose {
+            fusedLocationClient.removeLocationUpdates(locationCallback)
+        }
     }
 
-    // Diseño
+
+    LaunchedEffect(elapsedTime, isPaused) {
+        while (true) {
+            delay(1000)
+            if (!isPaused) {
+                elapsedTime++
+            }
+        }
+    }
+
+    LaunchedEffect(userLocation) {
+        userLocation?.let {
+            val distanceToEnd = SphericalUtil.computeDistanceBetween(
+                it,
+                runData!!.routePoints.last()
+            )
+            if (distanceToEnd <= 50) {
+                message = "¡Felicidades, ruta completada con éxito!"
+
+                if (currentUser != null) {
+                    val record = ExercisePerformed(
+                        userId = currentUser.uid,
+                        name = runData!!.name,
+                        cantidad = distanceCovered,
+                        tiempoSegundos = elapsedTime
+                    )
+                    firestore.collection("completed_workouts").add(record)
+                }
+
+                firestore.collection("running_workouts")
+                    .document(runId)
+                    .update("estatus", 1)
+
+                delay(3000)
+                navController.navigate("all_runs")
+            }
+        }
+    }
+
+
     Column(modifier = Modifier.fillMaxSize()) {
         GoogleMap(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
-            cameraPositionState = cameraPositionState
+            cameraPositionState = cameraPositionState,
+            properties = MapProperties(isMyLocationEnabled = true)
         ) {
             Marker(
                 state = MarkerState(runData!!.routePoints.first()),
@@ -147,9 +155,15 @@ fun ActiveRunScreen(navController: NavController, runId: String) {
                 icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)
             )
             Polyline(points = runData!!.routePoints, width = 8f)
+            userLocation?.let {
+                Marker(
+                    state = MarkerState(position = it),
+                    title = "Mi Ubicación",
+                    icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
+                )
+            }
         }
 
-        // Estadísticas en tiempo real
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -182,5 +196,4 @@ fun ActiveRunScreen(navController: NavController, runId: String) {
     }
 }
 
-// Función formatear decimales
 fun Double.format(decimals: Int): String = "%.${decimals}f".format(this)

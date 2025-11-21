@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.allenare_mobile.model.RunData
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -25,14 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.maps.android.SphericalUtil
 import com.google.maps.android.compose.*
 import kotlinx.coroutines.tasks.await
-
-data class RunData(
-    val id: String,
-    val name: String,
-    val distance: Double,
-    val duration: Long,
-    val routePoints: List<LatLng>
-)
 
 @OptIn(ExperimentalPermissionsApi::class)
 @SuppressLint("MissingPermission")

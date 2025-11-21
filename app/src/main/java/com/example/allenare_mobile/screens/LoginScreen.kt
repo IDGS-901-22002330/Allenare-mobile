@@ -54,18 +54,31 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onNavigateToRegister: () -> Unit) {
                 coroutineScope.launch {
                     val userData = googleAuthUiClient.signInWithIntent(result.data ?: return@launch)
                     if (userData != null) {
-                        val userDoc = db.collection("users").document(userData.userId)
-                        userDoc.get().addOnSuccessListener { document ->
-                            if (!document.exists()) {
+                        val userDocRef = db.collection("users").document(userData.userId)
+                        userDocRef.get().addOnSuccessListener { document ->
+                            if (document.exists()) {
+                                // Si el usuario ya existe en la BD, navegamos.
+                                onLoginSuccess()
+                            } else {
+                                // Si el usuario es nuevo, lo creamos en la BD.
                                 val newUser = User(
                                     userId = userData.userId,
                                     nombre = userData.username ?: "",
                                     email = userData.email ?: "",
                                     photoUrl = userData.profilePictureUrl ?: ""
                                 )
-                                userDoc.set(newUser)
+                                // SOLO navegamos DESPUÉS de que se haya guardado con éxito.
+                                userDocRef.set(newUser).addOnSuccessListener {
+                                    onLoginSuccess()
+                                }.addOnFailureListener {
+                                    isLoading = false
+                                    Toast.makeText(context, "Error al guardar el nuevo usuario.", Toast.LENGTH_SHORT).show()
+                                }
                             }
-                        }.addOnCompleteListener { onLoginSuccess() }
+                        }.addOnFailureListener {
+                             isLoading = false
+                             Toast.makeText(context, "Error al verificar el usuario.", Toast.LENGTH_SHORT).show()
+                        }
                     } else {
                         isLoading = false
                         Toast.makeText(context, "Error al iniciar sesión con Google.", Toast.LENGTH_SHORT).show()
