@@ -22,7 +22,7 @@ fun Records(userId: String) {
     var stats by remember { mutableStateOf(GoalStats()) }
     var loading by remember { mutableStateOf(true) }
 
-    // --- CARGAR DATOS DE FIREBASE ---
+
     LaunchedEffect(userId) {
         try {
             val snapshot = firestore.collection("exercise_performed")

@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.allenare_mobile.model.RunningWorkout
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.*
@@ -25,9 +26,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlin.math.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("MissingPermission")
 @Composable
-fun LogRunningWorkoutScreen(onWorkoutLogged: () -> Unit) {
+fun LogRunningWorkoutScreen(navController: NavController, onWorkoutLogged: () -> Unit) {
     val context = LocalContext.current
     val db = Firebase.firestore
     val user = Firebase.auth.currentUser
@@ -65,6 +67,20 @@ fun LogRunningWorkoutScreen(onWorkoutLogged: () -> Unit) {
     }
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Crear nueva ruta") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Volver",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+            )
+        },
         floatingActionButton = {
             Button(
                 onClick = {
@@ -129,7 +145,9 @@ fun LogRunningWorkoutScreen(onWorkoutLogged: () -> Unit) {
                             Toast.makeText(context, "Error al guardar la ruta", Toast.LENGTH_SHORT).show()
                         }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
             ) {
                 Text("Guardar ruta", color = Color.White)
             }

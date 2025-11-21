@@ -7,10 +7,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -34,18 +38,23 @@ data class RunData(
     val routePoints: List<LatLng>
 )
 
-@OptIn(ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
 @SuppressLint("MissingPermission")
 @Composable
 fun AllRunsScreen(navController: NavController, onWorkoutLogged: () -> Unit) {
+
     val locationPermission = rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION)
     val firestore = FirebaseFirestore.getInstance()
     val currentUser = FirebaseAuth.getInstance().currentUser
+    val userId = currentUser?.uid ?: ""
     var runs by remember { mutableStateOf<List<RunData>>(emptyList()) }
+
     val context = androidx.compose.ui.platform.LocalContext.current
     val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
-    // Cargar las rutas del usuario
+    var selectedTabIndex by remember { mutableStateOf(0) }
+
+    // Cargar las rutas (NO SE MODIFICA)
     LaunchedEffect(Unit) {
         if (locationPermission.status.isGranted) {
             try {
@@ -69,99 +78,167 @@ fun AllRunsScreen(navController: NavController, onWorkoutLogged: () -> Unit) {
                         RunData(doc.id, name, dist, dur, latLngList)
                     }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        } else {
-            locationPermission.launchPermissionRequest()
-        }
+            } catch (e: Exception) {}
+        } else locationPermission.launchPermissionRequest()
     }
 
-    // Diseño
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Text("Mis Carreras", style = MaterialTheme.typography.headlineMedium)
-        Spacer(modifier = Modifier.height(16.dp))
 
-        if (runs.isEmpty()) {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Aún no has registrado ninguna carrera")
+    // UI
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Mis Carreras") },
+                actions = {
+
+                    // Botón Metas (NO afecta lógica)
+                    IconButton(onClick = { navController.navigate("records/${userId}") }) {
+                        Icon(Icons.Default.EmojiEvents, "Metas", tint = Color(0xFFFFC107))
+                    }
+
+                    // Botón Nueva Ruta
+                    IconButton(onClick = {
+                        navController.navigate("log_running_workout")
+                    }) {
+                        Icon(
+                            Icons.Default.Add,
+                            contentDescription = "Crear nueva ruta"
+                        )
+                    }
+                }
+            )
+        }
+    ) { padding ->
+
+        Column(modifier = Modifier.padding(padding)) {
+
+            // Tabs estilo Rutinas
+            TabRow(selectedTabIndex = selectedTabIndex) {
+                Tab(
+                    selected = selectedTabIndex == 0,
+                    onClick = { selectedTabIndex = 0 },
+                    text = { Text("Todas") }
+                )
+                Tab(
+                    selected = selectedTabIndex == 1,
+                    onClick = { selectedTabIndex = 1 },
+                    text = { Text("Recientes") }
+                )
             }
-        } else {
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                items(runs) { run ->
-                    var expanded by remember { mutableStateOf(false) }
-                    var canStart by remember { mutableStateOf(false) }
 
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { expanded = !expanded }
-                            .animateContentSize(),
-                        elevation = CardDefaults.cardElevation(4.dp)
-                    ) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text(run.name, style = MaterialTheme.typography.titleLarge)
-                            Text("Distancia: %.2f km".format(run.distance))
-                            Text("Duración: ${run.duration / 60} min")
+            val listToShow =
+                if (selectedTabIndex == 0) runs
+                else runs.take(5) // últimos 5 (NO afecta lógica principal)
 
-                            if (expanded && run.routePoints.isNotEmpty()) {
-                                val cameraPositionState = rememberCameraPositionState {
-                                    position = CameraPosition.fromLatLngZoom(run.routePoints.first(), 15f)
-                                }
+            if (runs.isEmpty()) {
+                Box(
+                    Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        "Aún no has registrado ninguna carrera",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+            } else {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(14.dp),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                ) {
 
-                                Spacer(Modifier.height(12.dp))
-                                GoogleMap(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(200.dp),
-                                    cameraPositionState = cameraPositionState
-                                ) {
-                                    Marker(
-                                        state = MarkerState(run.routePoints.first()),
-                                        title = "Inicio",
-                                        icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
-                                    )
-                                    Marker(
-                                        state = MarkerState(run.routePoints.last()),
-                                        title = "Fin",
-                                        icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)
-                                    )
-                                    Polyline(points = run.routePoints, width = 8f)
-                                }
+                    items(listToShow) { run ->
 
-                                Spacer(Modifier.height(12.dp))
+                        var expanded by remember { mutableStateOf(false) }
+                        var canStart by remember { mutableStateOf(false) }
 
-                                // Distancia actual al inicio
-                                LaunchedEffect(Unit) {
-                                    val location = fusedLocationClient.lastLocation.await()
-                                    location?.let {
-                                        val userLatLng = LatLng(it.latitude, it.longitude)
-                                        val distanceToStart = SphericalUtil.computeDistanceBetween(
-                                            userLatLng,
-                                            run.routePoints.first()
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { expanded = !expanded }
+                                .animateContentSize(),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant
+                            ),
+                            shape = MaterialTheme.shapes.large,
+                            elevation = CardDefaults.cardElevation(8.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(18.dp)) {
+
+                                Text(run.name, style = MaterialTheme.typography.titleLarge)
+                                Spacer(Modifier.height(6.dp))
+
+                                Text("Distancia: %.2f km".format(run.distance))
+                                Text("Duración: ${run.duration / 60} min")
+
+                                if (expanded && run.routePoints.isNotEmpty()) {
+
+                                    Spacer(Modifier.height(14.dp))
+
+                                    val cameraPositionState = rememberCameraPositionState {
+                                        position = CameraPosition.fromLatLngZoom(
+                                            run.routePoints.first(), 15f
                                         )
-                                        canStart = distanceToStart <= 100
                                     }
-                                }
 
-                                if (canStart) {
-                                    Button(
-                                        onClick = {
-                                            navController.navigate("active_run/${run.id}")
-                                        },
-                                        modifier = Modifier.fillMaxWidth()
+                                    GoogleMap(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(220.dp),
+                                        cameraPositionState = cameraPositionState
                                     ) {
-                                        Text("Comenzar ruta")
+                                        Marker(
+                                            state = MarkerState(run.routePoints.first()),
+                                            title = "Inicio",
+                                            icon = BitmapDescriptorFactory.defaultMarker(
+                                                BitmapDescriptorFactory.HUE_GREEN
+                                            )
+                                        )
+
+                                        Marker(
+                                            state = MarkerState(run.routePoints.last()),
+                                            title = "Fin",
+                                            icon = BitmapDescriptorFactory.defaultMarker(
+                                                BitmapDescriptorFactory.HUE_RED
+                                            )
+                                        )
+
+                                        Polyline(
+                                            points = run.routePoints,
+                                            width = 10f
+                                        )
                                     }
-                                } else {
-                                    Text(
-                                        "Actualmente te encuentras demasiado lejos. Acércate al punto de inicio para comenzar el recorrido.",
-                                        color = MaterialTheme.colorScheme.error
-                                    )
+
+                                    Spacer(Modifier.height(12.dp))
+
+                                    // -------- NO SE TOCA LÓGICA --------
+                                    LaunchedEffect(Unit) {
+                                        val location = fusedLocationClient.lastLocation.await()
+                                        location?.let {
+                                            val userLatLng = LatLng(it.latitude, it.longitude)
+                                            val distanceToStart = SphericalUtil.computeDistanceBetween(
+                                                userLatLng,
+                                                run.routePoints.first()
+                                            )
+                                            canStart = distanceToStart <= 100
+                                        }
+                                    }
+
+                                    if (canStart) {
+                                        Button(
+                                            onClick = {
+                                                navController.navigate("active_run/${run.id}")
+                                            },
+                                            modifier = Modifier.fillMaxWidth()
+                                        ) {
+                                            Text("Comenzar ruta")
+                                        }
+                                    } else {
+                                        Text(
+                                            "Estás lejos del punto de inicio. Acércate para comenzar.",
+                                            color = MaterialTheme.colorScheme.error
+                                        )
+                                    }
                                 }
                             }
                         }
