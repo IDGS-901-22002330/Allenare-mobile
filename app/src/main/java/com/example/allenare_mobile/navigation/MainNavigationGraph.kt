@@ -17,6 +17,7 @@ import com.example.allenare_mobile.screens.LogRunningWorkoutScreen
 import com.example.allenare_mobile.screens.AllRunsScreen
 import com.example.allenare_mobile.screens.LeaderBoardsScreen
 import com.example.allenare_mobile.screens.ProfileScreen
+import com.example.allenare_mobile.screens.Records
 import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
 
 @Composable
@@ -31,10 +32,14 @@ fun MainNavigationGraph(
         modifier = modifier
     ) {
         composable(BottomNavItem.Dashboard.route) { DashboardScreen(modifier = modifier) }
-        composable(BottomNavItem.LogRun.route) { LogRunningWorkoutScreen { navController.navigate(BottomNavItem.Dashboard.route) } }
+        composable(BottomNavItem.LogRun.route) { LogRunningWorkoutScreen( navController = navController, { navController.navigate(BottomNavItem.Dashboard.route) }) }
         composable(BottomNavItem.AllRuns.route) { AllRunsScreen( navController = navController,  onWorkoutLogged = { navController.navigate(BottomNavItem.Dashboard.route) }) }
         composable("active_run/{runId}") { backStackEntry -> val runId = backStackEntry.arguments?.getString("runId") ?: ""
             ActiveRunScreen(navController = navController, runId = runId)
+        }
+        composable("records/{userId}") { backStackEntry ->
+            val userId = backStackEntry.arguments?.getString("userId") ?: ""
+            Records(navController = navController, userId = userId)
         }
         composable(BottomNavItem.Chat.route) { ChatScreen() } // <-- RUTA AÑADIDA
         composable(BottomNavItem.Profile.route) { ProfileScreen(onLogout = onLogout) }

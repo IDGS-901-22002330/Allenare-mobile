@@ -9,7 +9,7 @@ plugins {
 android {
     signingConfigs {
         getByName("debug") {
-            storeFile = file("C:\\Users\\Alejandro\\.android\\debug.keystore")
+            storeFile = file("C:\\Users\\ianaq\\.android\\debug.keystore")
             storePassword = "android"
             keyAlias = "androiddebugkey"
             keyPassword = "android"
