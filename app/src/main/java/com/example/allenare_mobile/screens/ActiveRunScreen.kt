@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import com.example.allenare_mobile.model.ExercisePerformed
 import com.example.allenare_mobile.model.RunData
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -136,25 +137,27 @@ fun ActiveRunScreen(navController: NavController, runId: String) {
     }
 
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()) {
         GoogleMap(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
+            modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
-            properties = MapProperties(isMyLocationEnabled = true)
+            properties = MapProperties(isMyLocationEnabled = locationPermission.status.isGranted)
         ) {
-            Marker(
-                state = MarkerState(runData!!.routePoints.first()),
-                title = "Inicio",
-                icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
-            )
-            Marker(
-                state = MarkerState(runData!!.routePoints.last()),
-                title = "Fin",
-                icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)
-            )
-            Polyline(points = runData!!.routePoints, width = 8f)
+            runData?.let {
+                if (it.routePoints.isNotEmpty()) {
+                    Marker(
+                        state = MarkerState(it.routePoints.first()),
+                        title = "Inicio",
+                        icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
+                    )
+                    Marker(
+                        state = MarkerState(it.routePoints.last()),
+                        title = "Fin",
+                        icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)
+                    )
+                    Polyline(points = it.routePoints, width = 10f, color = MaterialTheme.colorScheme.primary)
+                }
+            }
             userLocation?.let {
                 Marker(
                     state = MarkerState(position = it),
@@ -164,32 +167,90 @@ fun ActiveRunScreen(navController: NavController, runId: String) {
             }
         }
 
-        Column(
+        // HUD Overlay
+        Card(
             modifier = Modifier
+                .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f)
+            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
         ) {
-            Text("Tiempo: ${elapsedTime / 60} min ${elapsedTime % 60} s", style = MaterialTheme.typography.titleMedium)
-            Text("Distancia: ${(distanceCovered / 1000).format(2)} km", style = MaterialTheme.typography.titleMedium)
-            Text(message, style = MaterialTheme.typography.bodyMedium)
-
-            Spacer(Modifier.height(12.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
+            Column(
+                modifier = Modifier.padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Button(onClick = {
-                    isPaused = !isPaused
-                }) {
-                    Text(if (isPaused) "Continuar" else "Pausar")
+                if (message != "Iniciando ruta...") {
+                    Text(
+                        text = message,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
                 }
 
-                Button(onClick = {
-                    navController.navigate("all_runs")
-                }) {
-                    Text("Cancelar ruta")
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "TIEMPO",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = String.format("%02d:%02d", elapsedTime / 60, elapsedTime % 60),
+                            style = MaterialTheme.typography.displayMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                    
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "DISTANCIA",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "${(distanceCovered / 1000).format(2)}",
+                            style = MaterialTheme.typography.displayMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = "km",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Button(
+                        onClick = { isPaused = !isPaused },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (isPaused) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+                        ),
+                        modifier = Modifier.weight(1f).padding(end = 8.dp)
+                    ) {
+                        Text(if (isPaused) "REANUDAR" else "PAUSAR")
+                    }
+
+                    OutlinedButton(
+                        onClick = { navController.navigate("all_runs") },
+                        modifier = Modifier.weight(1f).padding(start = 8.dp)
+                    ) {
+                        Text("CANCELAR")
+                    }
                 }
             }
         }
