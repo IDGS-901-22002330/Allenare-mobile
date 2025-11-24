@@ -2,10 +2,24 @@ package com.example.allenare_mobile.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// Brand Colors
+val AllenareBlue = Color(0xFF0066CC)
+val AllenareOrange = Color(0xFFFF9900)
+val AllenareDark = Color(0xFF1A1C1E)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Backgrounds
+val BackgroundLight = Color(0xFFF2F5F8)
+val SurfaceWhite = Color(0xFFFFFFFF)
+
+// State Colors
+val SuccessGreen = Color(0xFF4CAF50)
+val ErrorRed = Color(0xFFB00020)
+
+// Legacy mappings for compatibility if needed
+val Purple80 = AllenareBlue.copy(alpha = 0.8f)
+val PurpleGrey80 = AllenareDark.copy(alpha = 0.8f)
+val Pink80 = AllenareOrange.copy(alpha = 0.8f)
+
+val Purple40 = AllenareBlue
+val PurpleGrey40 = AllenareDark
+val Pink40 = AllenareOrange

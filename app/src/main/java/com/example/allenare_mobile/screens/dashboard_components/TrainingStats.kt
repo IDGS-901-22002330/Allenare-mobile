@@ -15,16 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.allenare_mobile.model.GymWorkout
-import com.example.allenare_mobile.model.RunningWorkout
 import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
+import java.text.DecimalFormat
 
 @Composable
-fun TrainingStats(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningWorkout>) {
+fun TrainingStats(gymDays: Int, totalKm: Double) {
+    val kmFormatted = DecimalFormat("#.##").format(totalKm)
+
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         StatCard(
             title = "Días de gimnasio",
-            value = "${gymWorkouts.size}",
+            value = "$gymDays",
             icon = Icons.Default.FitnessCenter,
             gradientColors = listOf(Color(0xFFE57373), Color(0xFFFFCDD2)),
             modifier = Modifier.weight(1f).height(120.dp)
@@ -32,10 +33,10 @@ fun TrainingStats(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningWo
         Spacer(modifier = Modifier.width(16.dp))
         StatCard(
             title = "Total de km recorridos",
-            value = "${runningWorkouts.sumOf { it.distance }.toInt()} km",
+            value = "$kmFormatted km",
             icon = Icons.Default.DirectionsRun,
-            gradientColors = listOf(Color(0xFFE57373), Color(0xFFFFCDD2)),
-            modifier = Modifier.weight(1f)
+            gradientColors = listOf(Color(0xFF81D4FA), Color(0xFFB3E5FC)),
+            modifier = Modifier.weight(1f).height(120.dp)
         )
     }
 }
@@ -45,10 +46,7 @@ fun TrainingStats(gymWorkouts: List<GymWorkout>, runningWorkouts: List<RunningWo
 fun TrainingStatsPreview() {
     AllenaremobileTheme {
         Row(modifier = Modifier.padding(16.dp)) {
-            TrainingStats(
-                gymWorkouts = listOf(GymWorkout(), GymWorkout()),
-                runningWorkouts = listOf(RunningWorkout(distance = 12.0), RunningWorkout(distance = 12.0))
-            )
+            TrainingStats(gymDays = 3, totalKm = 24.5)
         }
     }
 }
