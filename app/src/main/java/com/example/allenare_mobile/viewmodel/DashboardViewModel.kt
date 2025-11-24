@@ -21,12 +21,12 @@ import java.util.Date
 // --- Data classes for UI State ---
 data class UserInfo(val name: String?, val email: String?, val photoUrl: String?)
 data class WeeklyStats(val gymDays: Int = 0, val totalKm: Double = 0.0)
-data class RecentWorkoutItem(val description: String, val date: Date?)
 
 data class DashboardUiState(
     val userInfo: UserInfo? = null,
     val weeklyStats: WeeklyStats = WeeklyStats(),
-    val recentWorkouts: List<RecentWorkoutItem> = emptyList(),
+    val recentGymWorkouts: List<GymWorkout> = emptyList(),
+    val recentRunningWorkouts: List<RunningWorkout> = emptyList(),
     val isLoading: Boolean = true
 )
 
@@ -102,8 +102,8 @@ class DashboardViewModel : ViewModel() {
             val (start, end) = getWeekDateRange()
             db.collection("completed_workouts")
                 .whereEqualTo("userId", user.uid)
-                .whereGreaterThanOrEqualTo("fechaRealizacion", start)
-                .whereLessThanOrEqualTo("fechaRealizacion", end)
+                .whereGreaterThanOrEqualTo("date", start)
+                .whereLessThanOrEqualTo("date", end)
                 .addSnapshotListener { snapshots, e ->
                     if (e != null) {
                         Log.e("DashboardViewModel", "Error en RunningWorkouts: ", e)
@@ -124,9 +124,9 @@ class DashboardViewModel : ViewModel() {
     ) { userDoc, gymWorkouts, runningWorkouts ->
         
         val userInfo = UserInfo(
-            name = userDoc?.nombre, // <-- Usamos el nombre de la BD
+            name = userDoc?.nombre,
             email = userDoc?.email,
-            photoUrl = userDoc?.photoUrl?.takeIf { it.isNotBlank() } // <-- Usamos la foto de la BD
+            photoUrl = userDoc?.fotoURL?.takeIf { it.isNotBlank() } // <-- Corregido
         )
 
         val weeklyStats = WeeklyStats(
@@ -134,12 +134,9 @@ class DashboardViewModel : ViewModel() {
             totalKm = runningWorkouts.sumOf { it.distance }
         )
 
-        val recentGym = gymWorkouts.map { RecentWorkoutItem("Gimnasio: ${it.title}", it.date) }
-        val recentRunning = runningWorkouts.map { RecentWorkoutItem("Carrera: ${it.distance} km", it.date) }
-        val recentWorkouts = (recentGym + recentRunning)
-            .sortedByDescending { it.date }
-            .take(5)
+        val recentGym = gymWorkouts.sortedByDescending { it.timestamp }.take(5)
+        val recentRunning = runningWorkouts.sortedByDescending { it.date }.take(5)
 
-        DashboardUiState(userInfo, weeklyStats, recentWorkouts, false)
+        DashboardUiState(userInfo, weeklyStats, recentGym, recentRunning, false)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), DashboardUiState(isLoading = true))
 }

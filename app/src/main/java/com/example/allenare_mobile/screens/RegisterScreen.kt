@@ -98,7 +98,7 @@ fun RegisterScreen(
                                 userId = userId,
                                 nombre = nombre,
                                 email = email,
-                                photoUrl = photoUrl,
+                                fotoURL = photoUrl,
                                 edad = edad.toIntOrNull() ?: 0,
                                 estatura = estatura.toIntOrNull() ?: 0,
                                 peso = peso.toIntOrNull() ?: 0,

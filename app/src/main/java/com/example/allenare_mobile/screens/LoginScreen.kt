@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.allenare_mobile.R
 import com.example.allenare_mobile.auth.GoogleAuthUiClient
+import com.example.allenare_mobile.auth.UserData
 import com.example.allenare_mobile.model.User
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.auth.ktx.auth
@@ -52,7 +53,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onNavigateToRegister: () -> Unit) {
             if (result.resultCode == Activity.RESULT_OK) {
                 isLoading = true
                 coroutineScope.launch {
-                    val userData = googleAuthUiClient.signInWithIntent(result.data ?: return@launch)
+                    val userData: UserData? = googleAuthUiClient.signInWithIntent(result.data ?: return@launch)
                     if (userData != null) {
                         val userDoc = db.collection("users").document(userData.userId)
                         userDoc.get().addOnSuccessListener { document ->
@@ -61,7 +62,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onNavigateToRegister: () -> Unit) {
                                     userId = userData.userId,
                                     nombre = userData.username ?: "",
                                     email = userData.email ?: "",
-                                    photoUrl = userData.profilePictureUrl ?: ""
+                                    fotoURL = userData.profilePictureUrl ?: ""
                                 )
                                 userDoc.set(newUser)
                             }
@@ -145,7 +146,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onNavigateToRegister: () -> Unit) {
                 shape = RoundedCornerShape(12.dp),
                 enabled = !isLoading
             ) {
-                Image(painter = painterResource(id = R.drawable.googleicon), contentDescription = "Google Logo", modifier = Modifier.size(24.dp))
+                Image(painter = painterResource(id = R.drawable.google_icon), contentDescription = "Google Logo", modifier = Modifier.size(24.dp))
                 Spacer(modifier = Modifier.width(8.dp))
                 Text("Iniciar sesión con Google", fontSize = 16.sp)
             }

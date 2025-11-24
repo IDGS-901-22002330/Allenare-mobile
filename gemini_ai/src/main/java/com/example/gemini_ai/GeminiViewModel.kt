@@ -2,12 +2,12 @@ package com.example.gemini_ai
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gemini_ai.BuildConfig
 import com.google.ai.client.generativeai.GenerativeModel
-import com.google.ai.client.generativeai.type.Content
-import com.google.ai.client.generativeai.type.asTextOrNull
 import com.google.ai.client.generativeai.type.content
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class ChatMessage(val text: String, val isFromUser: Boolean)
@@ -25,12 +25,22 @@ class GeminiViewModel : ViewModel() {
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
 
-    private val generativeModel = GenerativeModel(
-        modelName = "gemini-2.5-flash-lite",
-        apiKey = "AIzaSyDxKVprZ2Z8d6ABHrmPwFO3JSQjHLcnGx0" // TODO: Replace with your actual API key
-    )
+    private val generativeModel: GenerativeModel
 
-    // --- Chat functionality ---
+    init {
+        generativeModel = GenerativeModel(
+            modelName = "gemini-1.5-flash",
+            apiKey = BuildConfig.API_KEY,
+        )
+        // Initial message from the assistant
+        _chatMessages.value = listOf(
+            ChatMessage(
+                "¡Claro que sí! Soy Allen, tu entrenador personal de IA. Estoy listo para ayudarte a superar tus límites y alcanzar la mejor versión de ti mismo. ¿Qué te gustaría trabajar hoy? ¡Estoy aquí para ti!",
+                isFromUser = false
+            )
+        )
+    }
+
     private val chat = generativeModel.startChat(
         history = listOf(
             content(role = "user") {
@@ -42,23 +52,19 @@ class GeminiViewModel : ViewModel() {
         )
     )
 
-    init {
-        _chatMessages.value = listOf(ChatMessage("¡Claro que sí! Soy Allen, tu entrenador personal de IA. Estoy listo para ayudarte a superar tus límites y alcanzar la mejor versión de ti mismo. ¿Qué te gustaría trabajar hoy? ¡Estoy aquí para ti!", isFromUser = false))
-    }
-
     fun sendMessage(userMessage: String) {
-        // Add user message to UI
-        _chatMessages.value = _chatMessages.value + ChatMessage(userMessage, isFromUser = true)
+        // Add user message to the UI
+        _chatMessages.update { it + ChatMessage(userMessage, isFromUser = true) }
 
         viewModelScope.launch {
             _isLoading.value = true
             try {
                 val response = chat.sendMessage(userMessage)
-                response.text?.let {
-                    _chatMessages.value = _chatMessages.value + ChatMessage(it, isFromUser = false)
+                response.text?.let { modelResponse ->
+                    _chatMessages.update { it + ChatMessage(modelResponse, isFromUser = false) }
                 }
             } catch (e: Exception) {
-                _chatMessages.value = _chatMessages.value + ChatMessage("Error: ${e.message}", isFromUser = false)
+                _chatMessages.update { it + ChatMessage("Error: ${e.message}", isFromUser = false) }
             } finally {
                 _isLoading.value = false
             }

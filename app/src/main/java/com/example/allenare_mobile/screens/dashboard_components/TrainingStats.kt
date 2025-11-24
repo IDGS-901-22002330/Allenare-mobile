@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DirectionsRun
 import androidx.compose.material.icons.filled.FitnessCenter
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,10 +25,10 @@ fun TrainingStats(gymDays: Int, totalKm: Double) {
 
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         StatCard(
-            title = "Días de gimnasio",
+            title = "Días de entrenamiento",
             value = "$gymDays",
             icon = Icons.Default.FitnessCenter,
-            gradientColors = listOf(Color(0xFFE57373), Color(0xFFFFCDD2)),
+            gradientColors = listOf(Color(0xFF0066CC), Color(0xFFA2C9F6)),
             modifier = Modifier.weight(1f).height(120.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
@@ -35,7 +36,7 @@ fun TrainingStats(gymDays: Int, totalKm: Double) {
             title = "Total de km recorridos",
             value = "$kmFormatted km",
             icon = Icons.Default.DirectionsRun,
-            gradientColors = listOf(Color(0xFF81D4FA), Color(0xFFB3E5FC)),
+            gradientColors = listOf(Color(0xFF0066CC), Color(0xFFA2C9F6)),
             modifier = Modifier.weight(1f).height(120.dp)
         )
     }

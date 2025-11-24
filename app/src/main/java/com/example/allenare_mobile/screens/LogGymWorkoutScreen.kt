@@ -2,15 +2,16 @@ package com.example.allenare_mobile.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -36,7 +37,7 @@ import com.google.firebase.ktx.Firebase
 
 @Composable
 fun LogGymWorkoutScreen(onWorkoutLogged: () -> Unit) {
-    var title by remember { mutableStateOf("") }
+    var routineName by remember { mutableStateOf("") }
     var routineType by remember { mutableStateOf("") }
     var exercises by remember { mutableStateOf("") }
     var duration by remember { mutableStateOf("") }
@@ -50,50 +51,51 @@ fun LogGymWorkoutScreen(onWorkoutLogged: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF0F2F5))
-            .padding(32.dp),
+            .padding(32.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Registrar ejercicio", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+        Text("Registrar Ejercicio", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
         Spacer(modifier = Modifier.height(32.dp))
 
-        OutlinedTextField(value = title, onValueChange = { title = it }, label = { Text("Título del entrenamiento") }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp))
+        OutlinedTextField(value = routineName, onValueChange = { routineName = it }, label = { Text("Nombre de la rutina") }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp))
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(value = routineType, onValueChange = { routineType = it }, label = { Text("Tipo de rutina") }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp))
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = exercises, onValueChange = { exercises = it }, label = { Text("Ejercicios") }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp))
+        OutlinedTextField(value = exercises, onValueChange = { exercises = it }, label = { Text("Ejercicios (separados por comas)") }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp))
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(value = duration, onValueChange = { duration = it }, label = { Text("Duración (en minutos)") }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = description, onValueChange = { description = it }, label = { Text("Descripción") }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp))
+        OutlinedTextField(value = description, onValueChange = { description = it }, label = { Text("Descripción (opcional)") }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp))
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
             onClick = {
-                if (title.isNotBlank() && routineType.isNotBlank() && exercises.isNotBlank() && duration.isNotBlank()) {
+                if (user != null && routineName.isNotBlank() && duration.isNotBlank()) {
                     val gymWorkout = GymWorkout(
-                        userId = user?.uid ?: "",
-                        title = title,
+                        userId = user.uid,
+                        routineName = routineName,
                         routineType = routineType,
                         exercises = exercises,
                         duration = duration.toLongOrNull() ?: 0,
                         description = description
                     )
 
-                    db.collection("gym_workouts")
+                    db.collection("routine_completions") // <- Colección corregida
                         .add(gymWorkout)
-                        .addOnSuccessListener { 
-                            Toast.makeText(context, "Entrenamiento registrado", Toast.LENGTH_SHORT).show()
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Entrenamiento registrado con éxito", Toast.LENGTH_SHORT).show()
                             onWorkoutLogged()
-                         }
+                        }
                         .addOnFailureListener { e ->
-                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Error al registrar: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
                 } else {
-                    Toast.makeText(context, "Por favor, completa todos los campos.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Por favor, completa nombre y duración.", Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier.fillMaxWidth().height(50.dp),
