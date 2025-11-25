@@ -39,6 +39,12 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.Calendar
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
+import com.example.allenare_mobile.model.User
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 
 // Imports de Vico
 import com.patrykandpatrick.vico.compose.axis.horizontal.rememberBottomAxis
@@ -62,8 +68,14 @@ fun ProfileScreen(onLogout: () -> Unit) {
     val weekly = remember { mutableStateOf<List<ActivitySummary>>(emptyList()) }
     val monthly = remember { mutableStateOf<List<ActivitySummary>>(emptyList()) }
     val monthlyExercises = remember { mutableStateOf<Map<String, Int>>(emptyMap()) }
+    
+    val context = LocalContext.current
+    var userProfile by remember { mutableStateOf<User?>(null) }
 
     LaunchedEffect(Unit) {
+        fetchUserProfile { user ->
+            userProfile = user
+        }
         fetchWeeklyActivity { weekly.value = it }
         fetchMonthlyActivity { monthly.value = it }
         fetchMonthlyExercise { monthlyExercises.value = it }
@@ -91,6 +103,24 @@ fun ProfileScreen(onLogout: () -> Unit) {
                     onLogout()
                 }) {
                     Text("Log Out")
+                }
+            }
+
+            item {
+                userProfile?.let { user ->
+                    UserProfileEditor(
+                        user = user,
+                        onSave = { updatedUser ->
+                            updateUserProfile(updatedUser) { success ->
+                                if (success) {
+                                    Toast.makeText(context, "Perfil actualizado", Toast.LENGTH_SHORT).show()
+                                    userProfile = updatedUser
+                                } else {
+                                    Toast.makeText(context, "Error al actualizar", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    )
                 }
             }
 
@@ -536,4 +566,138 @@ fun toDate(value: Any?): Date {
         }
         else -> Date()
     }
+}
+
+@Composable
+fun UserProfileEditor(user: User, onSave: (User) -> Unit) {
+    var draftUser by remember(user) { mutableStateOf(user) }
+
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Text(
+                "Perfil de Usuario",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+
+            // Campos NO editables
+            OutlinedTextField(
+                value = draftUser.email,
+                onValueChange = {},
+                label = { Text("Email") },
+                enabled = false,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // Campos Editables
+            OutlinedTextField(
+                value = draftUser.nombre,
+                onValueChange = { draftUser = draftUser.copy(nombre = it) },
+                label = { Text("Nombre") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedTextField(
+                    value = if (draftUser.edad == 0) "" else draftUser.edad.toString(),
+                    onValueChange = { 
+                        if (it.all { char -> char.isDigit() }) {
+                            draftUser = draftUser.copy(edad = it.toIntOrNull() ?: 0) 
+                        }
+                    },
+                    label = { Text("Edad") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.weight(1f)
+                )
+
+                OutlinedTextField(
+                    value = if (draftUser.peso == 0) "" else draftUser.peso.toString(),
+                    onValueChange = { 
+                         if (it.all { char -> char.isDigit() }) {
+                            draftUser = draftUser.copy(peso = it.toIntOrNull() ?: 0)
+                         }
+                    },
+                    label = { Text("Peso (kg)") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedTextField(
+                    value = if (draftUser.estatura == 0) "" else draftUser.estatura.toString(),
+                    onValueChange = { 
+                        if (it.all { char -> char.isDigit() }) {
+                            draftUser = draftUser.copy(estatura = it.toIntOrNull() ?: 0)
+                        }
+                    },
+                    label = { Text("Estatura (cm)") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.weight(1f)
+                )
+
+                OutlinedTextField(
+                    value = draftUser.sexo,
+                    onValueChange = { draftUser = draftUser.copy(sexo = it) },
+                    label = { Text("Sexo") },
+                    modifier = Modifier.weight(1f)
+                )
+            }
+            
+            // Foto URL (No editable pero visible)
+             OutlinedTextField(
+                value = draftUser.fotoURL,
+                onValueChange = {},
+                label = { Text("Foto URL") },
+                enabled = false,
+                modifier = Modifier.fillMaxWidth(),
+                maxLines = 1
+            )
+
+            Button(
+                onClick = { onSave(draftUser) },
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text("Guardar Cambios")
+            }
+        }
+    }
+}
+
+fun fetchUserProfile(onResult: (User?) -> Unit) {
+    val db = Firebase.firestore
+    val uid = Firebase.auth.currentUser?.uid
+    if (uid == null) {
+        onResult(null)
+        return
+    }
+    db.collection("users").document(uid).get()
+        .addOnSuccessListener { document ->
+            if (document.exists()) {
+                onResult(document.toObject(User::class.java))
+            } else {
+                // Si no existe, retornamos un objeto base con los datos de Auth
+                val user = Firebase.auth.currentUser
+                onResult(User(
+                    userId = uid,
+                    email = user?.email ?: "",
+                    nombre = user?.displayName ?: "",
+                    fotoURL = user?.photoUrl?.toString() ?: ""
+                ))
+            }
+        }
+        .addOnFailureListener { onResult(null) }
+}
+
+fun updateUserProfile(user: User, onResult: (Boolean) -> Unit) {
+    val db = Firebase.firestore
+    db.collection("users").document(user.userId).set(user)
+        .addOnSuccessListener { onResult(true) }
+        .addOnFailureListener { onResult(false) }
 }

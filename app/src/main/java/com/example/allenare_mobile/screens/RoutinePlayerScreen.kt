@@ -133,29 +133,12 @@ fun RoutinePlayerScreen(
                                     currentStepIndex++
                                     playerState = PlayerState.Exercising
                                 } else {
-                                    // --- LÓGICA DE HISTORIAL RE-AÑADIDA ---
                                     playerState = PlayerState.Finished
-
-                                    if (user != null) {
-                                        val historyEntry = hashMapOf(
-                                            "userId" to user.uid,
-                                            "routineId" to routineId,
-                                            // Usamos el nombre del primer ejercicio como nombre de rutina (o puedes mejorarlo)
-                                            "routineName" to (steps.firstOrNull()?.exerciseNombre ?: "Rutina"),
-                                            "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
-                                        )
-
-                                        db.collection("routine_completions")
-                                            .add(historyEntry)
-                                            .addOnSuccessListener { Log.d("RoutinePlayer", "Historial guardado") }
-                                            .addOnFailureListener { e -> Log.w("RoutinePlayer", "Error al guardar historial", e) }
-                                    }
-                                    // --- FIN DE LA LÓGICA ---
                                 }
                             }
                         },
-                        enabled = isButtonEnabled
-                    ) {
+                        enabled = isButtonEnabled)
+                    {
                         val text = if (playerState is PlayerState.Exercising) "Hecho (Descansar)" else "Siguiente Ejercicio"
                         Text(text)
                     }

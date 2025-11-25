@@ -128,7 +128,7 @@ fun RegisterScreen(
                                 }
                             }
                         } else {
-                            saveUserToFirestore("") // Guardar sin foto
+                            saveUserToFirestore("")
                         }
 
                     } else {
@@ -147,6 +147,5 @@ fun RegisterScreen(
             }
         }
 
-        // ... (Textos de error y botón para ir al login)
     }
 }
