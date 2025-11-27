@@ -27,7 +27,7 @@ class GoogleAuthUiClient(
         } catch (e: Exception) {
             e.printStackTrace()
             if (e is CancellationException) throw e
-            null
+            throw e
         }
         return result?.pendingIntent?.intentSender
     }
@@ -43,7 +43,7 @@ class GoogleAuthUiClient(
             } catch (e: Exception) {
                 e.printStackTrace()
                 if (e is CancellationException) throw e
-                null
+                throw e
             }
         }
         return null
@@ -56,7 +56,7 @@ class GoogleAuthUiClient(
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
-                    .setServerClientId(context.getString(R.string.default_web_client_id))
+                    .setServerClientId(context.getString(R.string.google_web_client_id))
                     .setFilterByAuthorizedAccounts(false)
                     .build()
             )

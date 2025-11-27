@@ -53,23 +53,28 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onNavigateToRegister: () -> Unit) {
             if (result.resultCode == Activity.RESULT_OK) {
                 isLoading = true
                 coroutineScope.launch {
-                    val userData: UserData? = googleAuthUiClient.signInWithIntent(result.data ?: return@launch)
-                    if (userData != null) {
-                        val userDoc = db.collection("users").document(userData.userId)
-                        userDoc.get().addOnSuccessListener { document ->
-                            if (!document.exists()) {
-                                val newUser = User(
-                                    userId = userData.userId,
-                                    nombre = userData.username ?: "",
-                                    email = userData.email ?: "",
-                                    fotoURL = userData.profilePictureUrl ?: ""
-                                )
-                                userDoc.set(newUser)
-                            }
-                        }.addOnCompleteListener { onLoginSuccess() }
-                    } else {
+                    try {
+                        val userData: UserData? = googleAuthUiClient.signInWithIntent(result.data ?: return@launch)
+                        if (userData != null) {
+                            val userDoc = db.collection("users").document(userData.userId)
+                            userDoc.get().addOnSuccessListener { document ->
+                                if (!document.exists()) {
+                                    val newUser = User(
+                                        userId = userData.userId,
+                                        nombre = userData.username ?: "",
+                                        email = userData.email ?: "",
+                                        fotoURL = userData.profilePictureUrl ?: ""
+                                    )
+                                    userDoc.set(newUser)
+                                }
+                            }.addOnCompleteListener { onLoginSuccess() }
+                        } else {
+                            isLoading = false
+                            Toast.makeText(context, "Error: No se pudo obtener la información de Google.", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: Exception) {
                         isLoading = false
-                        Toast.makeText(context, "Error al iniciar sesión con Google.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
                     }
                 }
             }
@@ -134,12 +139,25 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onNavigateToRegister: () -> Unit) {
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedButton(
-                onClick = {
+                 onClick = {
                     coroutineScope.launch {
-                        val signInIntentSender = googleAuthUiClient.signIn()
-                        launcher.launch(
-                            IntentSenderRequest.Builder(signInIntentSender ?: return@launch).build()
-                        )
+                        try {
+                            val currentUser = googleAuthUiClient.getSignedInUser()
+                            if (currentUser != null) {
+                                onLoginSuccess()
+                            } else {
+                                val signInIntentSender = googleAuthUiClient.signIn()
+                                if (signInIntentSender != null) {
+                                    launcher.launch(
+                                        IntentSenderRequest.Builder(signInIntentSender).build()
+                                    )
+                                } else {
+                                    Toast.makeText(context, "Error al iniciar sesión con Google.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        } catch (e: Exception) {
+                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
                     }
                 },
                 modifier = Modifier.fillMaxWidth().height(50.dp),

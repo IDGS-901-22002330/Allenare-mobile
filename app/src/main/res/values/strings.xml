@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Allenare-mobile</string>
-    <string name="default_web_client_id">554929357539-r5g2af9q5o5kjepl1r4uhr7cl0k5mttg.apps.googleusercontent.com</string>
+    <string name="google_web_client_id">554929357539-r5g2af9q5o5kjepl1r4uhr7cl0k5mttg.apps.googleusercontent.com</string>
 </resources>

@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "YOUR_WEB_CLIENT_ID",
+          "client_id": "554929357539-nakebuffvcb91qe2l3ff3dbsvphgkj9j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.allenare_mobile",
+            "certificate_hash": "50e12b975535440c3d40f30bdf7c3b7b6d1f8b11"
+          }
+        },
+        {
+          "client_id": "554929357539-r5g2af9q5o5kjepl1r4uhr7cl0k5mttg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -25,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554929357539-r5g2af9q5o5kjepl1r4uhr7cl0k5mttg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
