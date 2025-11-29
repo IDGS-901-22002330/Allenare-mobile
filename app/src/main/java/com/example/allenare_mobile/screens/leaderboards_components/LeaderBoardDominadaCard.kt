@@ -28,7 +28,7 @@ fun LeaderBoardDominadaCard (index: Int?, nombre: String?, cantidad: Int?){
         Text(index.toString(), fontSize = 20.sp, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.width(16.dp))
         Column {
-            Text("Persona numero: ${index.toString()}", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+            Text(nombre.toString(), fontWeight = FontWeight.Bold, fontSize = 20.sp)
             Text("Dominadas completados: ${cantidad.toString()}     ", fontSize = 14.sp, color = Color.Gray)
         }
     }

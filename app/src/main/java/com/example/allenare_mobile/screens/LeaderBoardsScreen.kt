@@ -1,5 +1,6 @@
 package com.example.allenare_mobile.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,6 +30,7 @@ import com.example.allenare_mobile.model.ExerciseLogs
 import com.example.allenare_mobile.model.ExerciseSummary
 import com.example.allenare_mobile.model.RoutineCompletions
 import com.example.allenare_mobile.model.RoutineSummary
+import com.example.allenare_mobile.model.User
 import com.example.allenare_mobile.screens.leaderboards_components.LeaderBoardDominadaCard
 import com.example.allenare_mobile.screens.leaderboards_components.LeaderBoardExerciseCard
 import com.example.allenare_mobile.screens.leaderboards_components.LeaderBoardRoutineCard
@@ -36,6 +38,7 @@ import com.example.allenare_mobile.screens.leaderboards_components.LeaderBoardRu
 import com.example.allenare_mobile.ui.theme.AllenaremobileTheme
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import java.io.Console
 
 @Composable
 fun LeaderBoardsScreen(modifier: Modifier = Modifier) {
@@ -43,6 +46,9 @@ fun LeaderBoardsScreen(modifier: Modifier = Modifier) {
     var runnings by remember { mutableStateOf<List<CompletedWorkouts>>(emptyList()) }
     var routines by remember { mutableStateOf<List<RoutineCompletions>>(emptyList()) }
     var exercises by remember { mutableStateOf<List<ExerciseLogs>>(emptyList()) }
+    var users by remember { mutableStateOf<List<User>>(emptyList()) }
+
+
     var selectedTab by remember { mutableStateOf("running") }
 
     if (!isInPreview) {
@@ -63,16 +69,23 @@ fun LeaderBoardsScreen(modifier: Modifier = Modifier) {
                 .addOnSuccessListener { snapshot ->
                     exercises = snapshot.toObjects(ExerciseLogs::class.java)
                 }
+            db.collection("users")
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    users = snapshot.toObjects(User::class.java)
+                }
         }
+        Log.i("usuarios lista 1", users.toString())
     }
 
-    val RunningSummary = remember(runnings) {
+    val RunningSummary = remember(runnings, users) {
         runnings
             .groupBy { it.userId }
             .map { (userId, items) ->
+                val userName = users.firstOrNull { u -> u.userId == userId }?.nombre ?: "Desconocido"
                 RunningSummary(
                     userId = userId,
-                    name = items.firstOrNull()?.name ?: "",
+                    name = userName,
                     cantidadTotal = items.sumOf { it.cantidad },
                     tiempoTotal = items.sumOf { it.tiempoSegundos }
                 )
@@ -81,13 +94,15 @@ fun LeaderBoardsScreen(modifier: Modifier = Modifier) {
             .mapIndexed { index, item -> index to item }
     }
 
+
     val RoutineSummary = remember(routines) {
         routines
             .groupBy { it.userId }
             .map { (userId, items) ->
+                val userName = users.firstOrNull { u -> u.userId == userId }?.nombre ?: "Desconocido"
                 RoutineSummary(
                     userId = userId,
-                    nombre = items.firstOrNull()?.routineName ?: "",
+                    nombre = userName,
                     cantidad = items.size
                 )
             }
@@ -99,9 +114,10 @@ fun LeaderBoardsScreen(modifier: Modifier = Modifier) {
         exercises
             .groupBy { it.userId }
             .map { (userId, items) ->
+                val userName = users.firstOrNull { u -> u.userId == userId }?.nombre ?: "Desconocido"
                 ExerciseSummary(
                     userId = userId,
-                    nombre = items.firstOrNull()?.exerciseName ?: "",
+                    nombre = userName,
                     cantidad = items.sumOf { it.sets }
                 )
             }
@@ -114,9 +130,10 @@ fun LeaderBoardsScreen(modifier: Modifier = Modifier) {
             .filter { it.exerciseName == "Dominadas" }
             .groupBy { it.userId }
             .map { (userId, items) ->
+                val userName = users.firstOrNull { u -> u.userId == userId }?.nombre ?: "Desconocido"
                 ExerciseSummary(
                     userId = userId,
-                    nombre = "Dominadas",
+                    nombre = userName,
                     cantidad = items.sumOf { it.sets }
                 )
             }

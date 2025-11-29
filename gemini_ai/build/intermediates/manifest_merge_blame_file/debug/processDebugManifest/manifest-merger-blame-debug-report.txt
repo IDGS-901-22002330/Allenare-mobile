@@ -5,7 +5,7 @@
 5    <uses-sdk android:minSdkVersion="26" />
 6
 7    <application>
-7-->C:\Users\snorl\OneDrive\Documentos\VSC\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml:4:5-5:19
+7-->C:\Users\Alejandro\Desktop\Allenare\Allenare-mobile\gemini_ai\src\main\AndroidManifest.xml:4:5-5:19
 8    </application>
 9
 10</manifest>

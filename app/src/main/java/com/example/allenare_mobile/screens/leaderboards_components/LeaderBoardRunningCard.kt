@@ -28,7 +28,7 @@ fun LeaderBoardRunningCard (index: Int?, name: String?, cantidad: Double?, timep
         Text(index.toString(), fontSize = 20.sp, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.width(16.dp))
         Column {
-            Text("Persona numero ${index.toString()}", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+            Text(name.toString(), fontWeight = FontWeight.Bold, fontSize = 20.sp)
             Text("Distancia: ${cantidad.toString()}     ", fontSize = 14.sp, color = Color.Gray)
             Text("Tiempo en segundos: ${timepoSegundos.toString()}", fontSize = 14.sp, color = Color.Gray)
 
